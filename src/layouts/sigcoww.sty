@@ -1,0 +1,427 @@
+\makeatletter
+%
+%
+%
+%
+%
+% 前提
+\pagenumbering{arabic}
+\setcounter{page}{3}
+\renewcommand\frontmatter{\clearpage\@mainmatterfalse}
+\renewcommand\mainmatter{\clearpage\@mainmattertrue}
+\renewcommand{\reviewappendix}[0]{\clearpage\@mainmatterfalse\appendix}
+\renewcommand{\headfont}{\gtfamily\sffamily\bfseries}
+\renewcommand{\reviewtitlefont}{\headfont}
+\renewcommand{\chaptermark}[1]{\markboth{いやいやいやいや}{これまじ？}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection~#1}{}}
+\renewcommand{\reviewimageref}[2]{\reviewfigurename~\ref{#2}}
+\renewcommand{\reviewtableref}[2]{\reviewtablename~\ref{#2}}
+\renewcommand{\reviewlistref}[1]{\reviewlistname~#1}
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\renewcommand{\dbltopfraction}{1.0}
+\renewcommand{\textfraction}{0.01}
+\renewcommand{\floatpagefraction}{1.0}
+\renewcommand{\dblfloatpagefraction}{1.0}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{5}
+\setcounter{totalnumber}{10}
+\newcommand\swap[2]{%
+  \let\@swaptemp#1%
+  \let#1#2%
+  \let#2\@swaptemp}
+\urlstyle{same}
+\let\maxwidth\textwidth
+\setlength{\UnderlineDepth}{3pt}
+\renewcommand\p@subfigure{\thefigure\nobreak\,}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+\def\tightlist{\itemsep1pt\parskip0pt\parsep0pt}
+\sloppy
+
+\renewcommand{\captionfont}{\sffamily}
+\renewcommand{\captionlabelfont}{\sffamily}
+%
+%
+%
+%
+%
+% 版面
+\setlength{\textwidth}{35zw}
+\setlength{\marginparwidth}{11.7zw}% = 13zw*0.9
+\setlength{\marginparsep}{1.8zw}% = 2zw*0.9
+\setlength{\oddsidemargin}{22truemm}%ノド
+\setlength{\marginparpush}{\baselineskip}
+\setlength{\headsep}{11.25truemm}
+\newlength{\headinsep}\setlength{\headinsep}{1.75truemm}
+\setlength{\textheight}{64\baselineskip}
+\setlength{\headheight}{10truemm}
+\newlength{\chapterheight}\setlength{\chapterheight}{60truemm}
+\setlength{\marginposadjustment}{2pt}
+\definecolor{yryrblack}{gray}{0.1}
+\definecolor{yryrwhite}{gray}{0.9}
+%\flushbottom% ... marginparと相性が悪い
+\addtolength{\oddsidemargin}{-1truein}
+  \addtolength{\oddsidemargin}{\marginparwidth}
+  \addtolength{\oddsidemargin}{\marginparsep}
+  \addtolength{\oddsidemargin}{5truemm}
+\setlength{\evensidemargin}{\paperwidth}
+  \addtolength{\evensidemargin}{-\textwidth}
+  \addtolength{\evensidemargin}{-\oddsidemargin}
+  \addtolength{\evensidemargin}{-2truein}
+\if@twoside\else%
+  \newlength{\tmplength}
+  \setlength{\tmplength}{\paperwidth}
+  \addtolength{\tmplength}{-\textwidth}
+  \addtolength{\tmplength}{-\marginparwidth}
+  \addtolength{\tmplength}{-\marginparsep}
+  \setlength{\oddsidemargin}{.5\tmplength}
+  \addtolength{\oddsidemargin}{-1truein}
+\fi
+\setlength{\topmargin}{0pt}
+  \addtolength{\topmargin}{5truemm}
+  \addtolength{\topmargin}{-1truein}
+\addtolength{\textheight}{\topskip}
+\addtolength{\chapterheight}{5truemm}
+%
+%
+%
+%
+%
+% 柱 / ノンブル / ツメ
+\pagestyle{fancy}
+\newcommand{\hashira}[3]{\begin{tikzpicture}[remember picture, overlay]%
+  \fill[#1] ($(current page.north west)+(-10pt,-59pt-5mm-\headheight)$) rectangle (current page.north east);%
+  \end{tikzpicture}\raisebox{\headinsep}{\textcolor{#2}{#3}}}
+\newcommand{\nombre}[3]{\begin{tikzpicture}[remember picture, overlay]%
+  \def\@shifttemp{12pt}%
+  \fill[#1] ($(current page.south west)+(-10pt,-5mm-\headheight-\@shifttemp)$) rectangle ($(current page.south east)+(0pt,-\@shifttemp)$);%
+  \end{tikzpicture}\raisebox{-2\baselineskip}{\textcolor{#2}{#3}}}
+\newcommand{\chaphashira}[1]{\begin{tikzpicture}[remember picture, overlay]%
+  \fill[#1] ($(current page.north west)+(-10pt,-59pt-5mm-\chapterheight-6pt)$) rectangle (current page.north east);%
+  \end{tikzpicture}}
+\newcommand{\tume}{\if@mainmatter\if@twoside%
+  \checkoddpage\ifoddpage%
+    \def\tumewidth@{-5mm-5mm}\def\tumeorigin@{east}%
+  \else%
+    \def\tumewidth@{5mm+5mm}\def\tumeorigin@{west}%
+  \fi%
+  \count@\value{chapter}\advance\count@ by -1%
+  \begin{tikzpicture}[remember picture, overlay]\begin{scope}[shift={($%
+    (current page.north \tumeorigin@)+(-6pt,-59pt-5mm-\chapterheight-6pt-10mm)+\count@*(0,-10mm)$)}]%
+      \fill[yryrblack] (0, 0) rectangle (\tumewidth@, -10mm);%
+    \end{scope}%
+  \end{tikzpicture}\fi\fi}
+
+% chapterなし
+\if@twoside\else\fancyfootoffset[RO]{\dimexpr\marginparsep+\marginparwidth\relax}\fi
+\fancyhead{}
+\if@twoside
+  \fancyhead[LE]{\hashira{yryrwhite}{yryrblack}{\sffamily\leftmark}}
+  \fancyhead[RO]{\hashira{yryrwhite}{yryrblack}{\sffamily\rightmark}}
+\else
+  \fancyhead[LO]{\hashira{yryrwhite}{yryrblack}{\sffamily\leftmark}}
+\fi
+\fancyfoot{}
+\fancyfoot[LE]{\nombre{yryrblack}{yryrwhite}{\sffamily\thepage}\tume}
+\fancyfoot[RO]{\nombre{yryrblack}{yryrwhite}{\sffamily\thepage}\tume}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+
+% chapterあり
+\fancypagestyle{plainhead}{%
+\fancyhead{\chaphashira{yryrblack}}
+\fancyfoot{}
+\fancyfoot[LE]{\nombre{yryrblack}{yryrwhite}{\sffamily\thepage}\tume}
+\fancyfoot[RO]{\nombre{yryrblack}{yryrwhite}{\sffamily\thepage}\tume}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+%
+%
+%
+%
+%
+% 見出し
+% 通常版 \chapter{}
+\def\@makechapterhead#1{\begin{widepage}%
+  {\parindent \z@ \raggedright \normalfont
+    \vspace*{-\headsep}\vspace*{-\headheight}\vbox to\chapterheight{\vfill%
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \LARGE\headfont\textcolor{white}{\@chapapp\thechapter\@chappos}\par%
+		\textcolor{white}{\katagakiname\authorname}%
+        \par\nobreak
+        \vskip \Cvs
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \parbox[c]{\textwidth}{\Huge\headfont\textcolor{white}{#1}}\par\nobreak\vfill}%
+    \vspace*{2\Cvs}}%
+  \end{widepage}}
+
+% 目次 \chapter*{}
+\def\@makeschapterhead#1{\vspace*{-\headsep}\vspace*{-\headheight}\vspace*{-12pt}{%
+   \parindent \z@ \raggedright\normalfont
+   \begin{widepage*}\vbox to\chapterheight{\vfill%
+     \interlinepenalty\@M
+     \Huge\headfont\textcolor{white}{#1}\par\nobreak\vfill}\end{widepage*}%
+	 \vskip 2\Cvs}}
+
+% toc
+\newcommand{\@defaulttoc}[1]{\textcolor{yryrblack}{\underline{\mathstrut{\sffamily\textcolor{black}{\,#1\,}}}}}
+\let\@sigcowwtoc\@defaulttoc
+\newcommand{\@customtoc}[1]{\raisebox{1.0pt}{\colorbox{yryrblack}{\textcolor{white}{\large\headfont\,#1\,}}}}
+\def\numberline#1{\hb@xt@\@lnumwidth{\@sigcowwtoc{#1}\hfil}\hspace{0pt}}
+\renewcommand*{\l@chapter}[2]{%
+  \ifnum \c@tocdepth >\m@ne
+	\begin{widepage}{\Large%
+    \addpenalty{-\@highpenalty}%
+    \addvspace{1.0em \@plus\jsc@mpt}
+    \begingroup
+      \parindent\z@\rightskip\@tocrmarg\parfillskip-\rightskip\leavevmode\bfseries
+      \setlength\@lnumwidth{\jsc@tocl@width}\advance\@lnumwidth 2.683zw
+      \advance\leftskip\@lnumwidth \hskip-\leftskip
+      \let\@sigcowwtoc\@customtoc#1\let\@sigcowwtoc\@defaulttoc\hspace{5pt}%
+      \nobreak\textcolor{yryrblack}{\dotfill}\nobreak\hbox to\@pnumwidth{\hss\sffamily#2}\par
+      \penalty\@highpenalty
+    \endgroup
+    }\end{widepage}\vskip2\baselineskip
+  \fi}
+\renewcommand*{\l@section}{%
+  \@tempdima\jsc@tocl@width \advance\@tempdima -1zw
+  \vspace*{-1.5\baselineskip}\@dottedtoclinemod{1}{\@tempdima}{3.683zw}}
+\def\@dottedtoclinemod#1#2#3#4#5{\ifnum #1>\c@tocdepth \else
+  \vskip \z@ \@plus.2\jsc@mpt
+  {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+    \parindent #2\relax\@afterindenttrue
+   \interlinepenalty\@M
+   \leavevmode
+   \@lnumwidth #3\relax
+   \advance\leftskip \@lnumwidth \null\nobreak\hskip -\leftskip%
+   \begin{widepage}{#4}\nobreak%
+     \leaders\hbox{$\m@th \mkern \@dotsep mu\hbox{\textcolor{yryrblack}{.}}\mkern \@dotsep mu$}\hfill%
+     \nobreak\hb@xt@\@pnumwidth{\hfil\sffamily#5}\hspace*{9.25pt}\end{widepage}%
+   \par\vskip1.5\baselineskip}\fi}
+
+
+
+
+% \section{}
+\def\@startsection#1#2#3#4#5#6{%
+  \if@noskipsec \leavevmode \fi
+  \par
+  \@tempskipa #4\relax
+  \if@english \@afterindentfalse \else \@afterindenttrue \fi
+  \ifdim \@tempskipa <\z@
+    \@tempskipa -\@tempskipa \@afterindentfalse
+  \fi
+  \if@nobreak
+    \everypar{}%
+  \else
+    \addpenalty\@secpenalty
+    \ifdim \@tempskipa >\z@
+      \vskip\@tempskipa
+      \if@slide\else
+        \null
+        \vspace{-\baselineskip}%
+      \fi
+    \fi
+  \fi
+  \noindent
+  \@ifstar
+    {\@ssect{#3}{#4}{#5}{#6}}%
+    {\@dblarg{\@sect{#1}{#2}{#3}{#4}{#5}{#6}}}}
+\titleformat{\section}[hang]{\normalfont\Large\headfont}%
+  {\raisebox{0.7pt}{\colorbox{yryrblack}{\textcolor{white}{\large\,\thesection\,}}}}{0.5zw}{}[]
+\titlespacing*{\section}{\z@}{\Cvs \@plus.5\Cdp \@minus.2\Cdp}{.5\Cvs \@plus.3\Cdp}[\z@]
+
+% \subsection{}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+  {.5\Cvs \@plus.3\Cdp}%
+  {\normalfont\large\headfont
+    \begin{tikzpicture}
+      \useasboundingbox (0,0) rectangle (0,0);
+      \fill[yryrblack] (0,-3pt) rectangle (1.5pt,11pt);
+    \end{tikzpicture}\hspace{0.9zw}}}
+
+% \subsubsection{}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+  {\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+  {\z@}%
+  {\normalfont\normalsize\headfont
+    \begin{tikzpicture}
+      \useasboundingbox (0,0) rectangle (0,0);
+      \fill[yryrwhite] (0,-2pt) rectangle (1.5pt,9pt);
+    \end{tikzpicture}\hspace{1.1zw}}}
+%
+%
+%
+%
+%
+% 注釈
+\if@twoside\reversemarginpar\fi
+\renewcommand{\footnote}[1]{\Marginpar{#1}}
+% http://oversleptabit.com/?p=453 を改造
+\newcounter{marginparcnt}[chapter]
+\newcommand{\theMarginparcnt}{$\dagger$\arabic{marginparcnt}}
+\newcommand{\Marginpar}[1]{%
+  \stepcounter{marginparcnt}%
+  \textsuperscript{\theMarginparcnt}%
+  \protect\marginpar{\small%
+    \makebox[2zw][l]{\textcolor{black}{\theMarginparcnt}}{\textcolor{black}{#1}}\par}}
+%
+%
+%
+%
+%
+% 自前の環境
+% 一時的に注釈をぶち抜く
+\newlength{\maxtextwidth}
+\setlength{\maxtextwidth}{\textwidth}
+\addtolength{\maxtextwidth}{\marginparsep}
+\addtolength{\maxtextwidth}{\marginparwidth}
+\newenvironment{widepage*}{%
+  \if@twoside
+    \checkoddpage
+    \ifoddpage\hspace*{-\marginparwidth}\hspace*{-\marginparsep}\fi%
+  \fi\noindent\begin{minipage}[]{\maxtextwidth}}{\end{minipage}}
+\newenvironment{widepage}{\hspace*{-10pt}\begin{widepage*}}{\end{widepage*}}
+
+% NOP
+\newcommand{\padding@}{\vspace*{\fill}%
+  \begin{widepage}\begin{shaded}
+  \centering\vspace*{.2\textheight}%
+  \texttt{\Large Kind=1, Length=0}\\
+  \vspace*{.05\textheight}
+  {\headfont\Huge No-Operation (NOP)}\\
+  \vspace*{.05\textheight}
+  \texttt{\Large xchgl \%eax, \%eax}\\
+  \vspace*{.2\textheight}\end{shaded}\end{widepage}\vfill\newpage}
+\renewcommand{\reviewcolophon}[0]{\clearpage\if@twoside%
+  \markboth{}{}%
+  \count@\value{page}%
+  \advance\count@2%
+  \@tempcnta=\count@%
+  \divide\@tempcnta by 4%
+  \multiply\@tempcnta by 4%
+  \advance\count@ by -\@tempcnta%
+  \ifnum\count@=1{\padding@\padding@\padding@}\fi%
+  \ifnum\count@=2{\padding@\padding@}\fi%
+  \ifnum\count@=3{\padding@}\fi%
+  \fi}
+
+% //lead{...//}
+\newenvironment{leadw}{\begin{widepage}\begin{abstract}}{\end{abstract}\end{widepage}}
+
+% @<author>{...}
+\newcommand{\authorname}{}
+\newcommand{\authorsub}[1]{\LARGE#1{\large\hspace{0.5em}著}}
+\newcommand{\katagakiname}{}
+\newcommand{\katagakisub}[1]{\large#1\hspace{0.75em}}
+
+% //image , //imagew
+\renewenvironment{reviewimage}%
+  {\begin{figure}[!htbp]\centering}%
+  {\end{figure}}
+\newenvironment{reviewimagew}%
+  {\begin{figure}[!htbp]\begin{widepage*}\centering}%
+  {\end{widepage*}\end{figure}}
+
+% table
+\renewenvironment{reviewtable}[1]{%
+  \small\setlength{\baselineskip}{1.25zw}
+  \renewcommand\arraystretch{1.5}
+    \begin{tabular}{#1}}{%
+    \end{tabular}}
+
+% profile
+\newenvironment{profile}[2]%
+  {\vspace{2\Cvs \@plus.5\Cdp \@minus.2\Cdp}\begin{widepage*}\setlength{\parindent}{1zw}%
+    \noindent\colorbox{yryrblack}{\textcolor{white}{\large\headfont\mathstrut\,#1\,}}%
+    \hspace{0.5zw}\raisebox{0.22pt}{\underline{\small\sffamily\strut\,#2\,}}\vspace{.4\Cvs \@plus.3\Cdp}\par}
+  {\end{widepage*}}
+
+% subfig
+\newenvironment{reviewsubfig}[1]%
+  {\def\@tempcaption{#1}\begin{reviewimage}}%
+  {\caption{\@tempcaption}\end{reviewimage}}
+\newenvironment{reviewsubfigw}[1]%
+  {\def\@tempcaption{#1}\begin{reviewimagew}}%
+  {\caption{\@tempcaption}\end{reviewimagew}}
+
+% tabooular
+\newcommand{\tabooularhead}[1]{\sffamily#1}
+\providecommand{\toprule}{\hline\rowcolor{yryrwhite}}
+\providecommand{\midrule}{\hline}
+\providecommand{\bottomrule}{\hline}
+\newenvironment{tabooular}{%
+  \begin{table}[!htbp]%
+    \small\renewcommand{\arraystretch}{1.25}%
+    \centering}{%
+  \end{table}}
+\newenvironment{tabooularw}{%
+  \begin{table}[!htbp]%
+    \small\renewcommand{\arraystretch}{1.25}%
+    \begin{widepage*}\centering}{%
+  \end{widepage*}\end{table}}
+
+% codeblock系
+% https://github.com/TechBooster/ReVIEW-Template/blob/master/articles/sty/techbooster-doujin.sty を改変
+\renewenvironment{shaded}{%
+ \begin{tcolorbox}[colback=yryrwhite,colframe=yryrwhite,boxrule=1pt,top=.5zw,left=.5zw,bottom=.5zw,right=.5zw]}{\end{tcolorbox}}
+\renewenvironment{shadedb}{%
+ \begin{tcolorbox}[colback=yryrblack,colframe=yryrblack,colupper=white,boxrule=1pt,top=.5zw,left=.5zw,bottom=.5zw,right=.5zw]}{\end{tcolorbox}}
+
+\renewenvironment{reviewemlist}{%
+  \medskip\begin{shaded}\small\setlength{\baselineskip}{1.2zw}\begin{alltt}}{%
+  \end{alltt}\end{shaded}}
+\renewenvironment{reviewlist}{%
+  \medskip\begin{shaded}\small\setlength{\baselineskip}{1.2zw}\begin{alltt}}{%
+  \end{alltt}\end{shaded}}
+\let\reviewsource\reviewlist
+\let\endreviewsource\endreviewlist
+\renewenvironment{reviewcmd}{%
+  \medskip\color{white}\begin{shadedb}\small\setlength{\baselineskip}{1.2zw}\begin{alltt}}{%
+  \end{alltt}\end{shadedb}}
+
+\newcommand{\widesubsubsubsubsubsubsubsubsectionskip}{0.8\Cvs}
+\newcommand{\subsubsubsubsubsubsubsubsectionskip}{0.2\Cvs}
+\newcommand{\subsubsubsubsubsubsubsubsection}{\@startsection{subparagraph}{5}{\z@}%
+  {\subsubsubsubsubsubsubsubsectionskip}{\z@}{\captionfont}}
+\renewcommand{\reviewlistcaption}[1]{\subsubsubsubsubsubsubsubsection{#1}}
+\renewcommand{\reviewemlistcaption}[1]{\reviewlistcaption{#1}}
+\renewcommand{\reviewcmdcaption}[1]{\reviewlistcaption{#1}}
+
+% Tips
+\newenvironment{tips}[1]%
+  {\begin{figure}[!bt]\begin{widepage*}\begin{tcolorbox}[%
+    colframe=yryrwhite,colback=yryrwhite,colbacktitle=yryrwhite,coltitle=black,fonttitle=\headfont\large,%
+	title={\vspace{1zw}Tips: #1},boxrule=1pt,top=0pt,left=1zw,bottom=1zw,right=1zw]%
+    \setlength{\columnsep}{0.9zw}\begin{multicols}{2}\setlength{\parindent}{1zw}}%
+  {\end{multicols}\end{tcolorbox}\end{widepage*}\end{figure}}
+
+% 便利
+\newcommand{\argmax}{\operatornamewithlimits{\mathrm{arg\,max}}}
+\newcommand{\argmin}{\operatornamewithlimits{\mathrm{arg\,min}}}
+
+% accsupp
+% Heiko Oberdiek https://tex.stackexchange.com/questions/119713/making-equations-copyable-in-pdf/119718#119718
+\newcommand*{\copyable}{%
+  \begingroup
+  \@sanitize
+  \catcode`\%=14 % allow % as comment char, also needed for \%
+  \@copyable
+}
+\newcommand*{\@copyable}[1]{%
+  \endgroup
+  \BeginAccSupp{%
+    ActualText=\detokenize{#1},%
+    method=pdfstringdef,
+  }%
+  \scantokens{#1}%
+  \EndAccSupp{}%
+}
+
+% kusodeka
+\newcommand{\kusodeka}[1]{\vspace{-\baselineskip}\begin{center}\resizebox{\textwidth}{!}{#1}\end{center}}
+\makeatother

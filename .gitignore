@@ -1,0 +1,6 @@
+.DS_Store
+Thumbs.db
+~*
+.*.swp
+working_temporary_directory
+.temporary.diff
