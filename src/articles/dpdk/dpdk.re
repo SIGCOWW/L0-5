@@ -269,7 +269,7 @@ $ cd dpdk-stable-17.05.2/ && \
 
 その次はHugepagesの設定です。
 次に示すコマンドを実行します。
-////emlist{
+//emlist{
 $ sudo sed -ie 's/\(GRUB_CMDLINE_LINUX=\)/#\1/g' /etc/default/grub
 $ echo 'GRUB_CMDLINE_LINUX="hugepages=512"' | sudo tee -a /etc/default/grub
 $ sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -309,7 +309,7 @@ $ TODO: 実行
 ==== DPDKアプリケーションの作成
 やや大げさなタイトルですが、NICのLEDを光らせるためのDPDKアプリケーションを作成しましょう。
 前もって作成しておいたものがこちらになります。
-//emlsit{
+//emlist{
 lrks/hikare-nicnium
 https://github.com/lrks/hikare-nicnium
 //}
@@ -317,7 +317,7 @@ https://github.com/lrks/hikare-nicnium
 ここでは、@<tt>{examples/ethtool}で利用している初期化処理を流用しました。
 これを除いた主な処理は次のとおりとなり、非常に簡単になります。
 @<tt>{rte_eth_led_on()}と@<tt>{rte_eth_led_off()}を叩いているだけなので当然ですね。
-//emlsit{
+//emlist{
 static void control_led(uint8_t port_id, int flg)
 {
 	if (flg) {
