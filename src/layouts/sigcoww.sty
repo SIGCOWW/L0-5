@@ -268,7 +268,7 @@
   \stepcounter{marginparcnt}%
   \textsuperscript{\theMarginparcnt}%
   \protect\marginpar{\small%
-    \makebox[2zw][l]{\textcolor{black}{\theMarginparcnt}}{\textcolor{black}{#1}}\par}}
+    \makebox[2zw][l]{\textcolor{black}{\theMarginparcnt}}{\hspace{0pt}\textcolor{black}{#1}}\par}}
 %
 %
 %
@@ -297,8 +297,7 @@
   \vspace*{.05\textheight}
   \texttt{\Large xchgl \%eax, \%eax}\\
   \vspace*{.2\textheight}\end{shaded}\end{widepage}\vfill\newpage}
-\renewcommand{\reviewcolophon}[0]{\clearpage\if@twoside%
-  \markboth{}{}%
+\renewcommand{\reviewcolophon}[0]{\clearpage\markboth{}{}\if@twoside%
   \count@\value{page}%
   \advance\count@2%
   \@tempcnta=\count@%

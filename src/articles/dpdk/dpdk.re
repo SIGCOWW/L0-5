@@ -26,7 +26,7 @@ Linuxの場合のパケット処理はカーネルが行うはずで、一部の
 一部の場合とは、独自のネットワークスタックを動かしたい、または特殊なルーティングを実現したいときです。
 このとき、TAP/TUNデバイスやPacket socket、Raw socket@<fn>{ping}といった機能@<fn>{nado}を利用してユーザランドでパケットを処理しますが、カーネルとの頻繁なメモリコピーといった要因により、パフォーマンスの低下が予期されます。
 もしかして、DPDKとは「@<b>{TAP/TUNデバイスやPacket/Raw socketを用いたユーザランドでの}パケット処理を@<b>{CPU拡張命令やビット演算・アクセラレータによってほどほどに}高速化できるライブラリ」だったのでしょうか？
-//footnote[ping][pingコマンドでもICMP(L3)パケットを送出するために利用しています。]
+//footnote[ping][pingコマンドでもICMP (L3)パケットを送出するために利用しています。]
 //footnote[nado][ただし、netmap、(e)BPF、XDPは存在しないものとする。]
 
 #@# Todo: どれぐらい速いか資料かなんかいれる
@@ -71,47 +71,47 @@ Seastarは、独自のTCP/IPプロトコルスタックを備えており、こ�
 
 === DPDKのAPI
 DPDKは「パケット処理を高速化できる@<b>{ライブラリ}」であり、さまざまなAPIが存在します@<fn>{dpdk-api}。
-例えば、@<tt>{rte_eth_promiscuous_enable()}によってNICのプロミスキャスモードを有効にできたり、@<tt>{rte_eth_dev_get_eeprom()}でNICのEEPROMを取得可能です。
+たとえば、@<tt>{rte_eth_promiscuous_enable()}によってNICのプロミスキャスモードを有効にできたり、@<tt>{rte_eth_dev_get_eeprom()}でNICのEEPROMを取得可能です。
 プロトコルの処理に関しても@<tt>{rte_ipv4_udptcp_cksum()}でチェックサム程度なら計算できるほか、各種プロトコルヘッダの構造体がすでに定義されています。
 //footnote[dpdk-api][@<href>{http://doc.dpdk.org/api/}]
 
-さらに、@<tt>{rte_eth_led_on()}や@<tt>{rte_eth_led_off()}といった興味深いAPIを見つけました。
-これらの詳細をドキュメントで確認し、和訳すると以下のようになります。
+さらに、@<tt>{rte_eth_led_on()}や@<tt>{rte_eth_led_off()}といった興味深いAPIもありました。
+これらの詳細をドキュメントで確認し、和訳すると次のようになります。
 //emlist{
 int rte_eth_led_on(uint16_t port_id);
 int rte_eth_led_off(uint16_t port_id);
 
 機能
-EthernetデバイスのLEDを点灯/消灯する
+  EthernetデバイスのLEDを点灯/消灯する
 
 引数
-port_id: DPDKが管理するNICのID
+  port_id: DPDKが管理するNICのID
 
 返り値
-0: 成功
--ENOTSUP: デバイスが対応していない
--ENODEV: port_idが無効
--EIO: デバイスが削除された
+  0: 成功
+  -ENOTSUP: デバイスが対応していない
+  -ENODEV: port_idが無効
+  -EIO: デバイスが削除された
 //}
 最高ですね。
-「LEDを点灯/消灯する」ってことは、つまりすなわち要するにLEDを点灯/消灯できるということですよ！
-瞳の奥が熱くなって胸も熱くなります。
-このAPIを使ってNICのLEDを点灯させてみたいものです。
-
+「EthernetデバイスのLEDを点灯/消灯する」ってことは、つまりすなわち要するに@<img>{rj45}のLEDを点灯/消灯できるということですよ！
+瞳の奥が熱くなって胸も熱くなる、さすがに気分が高揚します。
+ぜひこのAPIを使ってみたいものです。
+//image[rj45][RJ45ジャック][scale=0.5]
 
 
 == 光れ！NICニウム
 ということで、DPDKでNICのLEDを光らせましょう。
 
 === 冴えないNICの照らしかた LinuxカーネルSide
-#@# Todo: emlistではなくlistで参照する
-とはいえ、まずはDPDKを使わずにNICの制御をLinuxカーネルに任せた場合でもLEDを光らせられるのか検討します。
-結論から言うと、LEDを自由に制御するためにはカーネルの改変が必要で敷居は高いです。
+とはいえ、NICのLEDを光らせるというのは本当にDPDKを使わないと実現できないのでしょうか？
+そこで、まずはDPDKを使わずにNICの制御をLinuxカーネルに任せた場合でもLEDを光らせられるのか検討します。
+結論からいえば、LEDを自由に制御するためにはカーネルの改変が必要で敷居は高いです。
 
 通常、NICのLEDが光って嬉しいときというのは、@<tt>{eth0}や@<tt>{enp1s0}といったデバイス名に紐づくNICの物理的な位置を知りたい場合でしょう。
 これを実現するのが「@<tt>{ethtool -p <デバイス名>}」というコマンドで、NICのLEDを一定間隔で点滅させます。
-この機能は@<tt>{ioctl}システムコールを呼ぶ@<fn>{ioctl}ことで実現していることが、@<tt>{strace}や次に示すソースコード@<fn>{ethtool}から分かりました。
-//emlist{
+この機能は@<tt>{ioctl}システムコールを呼ぶ@<fn>{ioctl}ことで実現していることが、@<tt>{strace}や@<list>{ethtool}に示す@<fn>{ethtool}のソースコードから分かりました。
+//list[ethtool][ethtoolから抜粋したソースコード]{
 static int do_phys_id(int fd, struct ifreq *ifr)
 {
 	int err;
@@ -131,21 +131,17 @@ static int do_phys_id(int fd, struct ifreq *ifr)
 //footnote[ethtool][@<href>{https://www.kernel.org/pub/software/network/ethtool/}]
 
 この@<tt>{ioctl()}を実行すると、カーネルの@<tt>{net/core/ethtool.c}に定義される@<tt>{ethtool_phys_id()}関数が呼ばれます。
-この関数のソースコードは次に示すとおりで、このコードからデバイスドライバの@<tt>{set_phys_id(dev, ETHTOOL_ID_ACTIVE)}の返り値から決定した周期にしたがい、@<tt>{set_phys_id(dev, ETHTOOL_ID_OFF)}または@<tt>{set_phys_id(dev, ETHTOOL_ID_ON)}によってLEDを点滅させていることが分かりました。
-//emlist{
+この関数のソースコードは@<list>{ethtool_phys_id}に示すとおりで、このコードからデバイスドライバの@<tt>{set_phys_id(dev, ETHTOOL_ID_ACTIVE)}の返り値から決定した周期にしたがい、@<tt>{set_phys_id(dev, ETHTOOL_ID_OFF)}または@<tt>{set_phys_id(dev, ETHTOOL_ID_ON)}によってLEDを点滅させていることが分かりました。
+//list[ethtool_phys_id][@<tt>{ethtool_phys_id()}のソースコード]{
 static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
 {
 	struct ethtool_value id;
 	static bool busy;
 	const struct ethtool_ops *ops = dev->ethtool_ops;
 	int rc;
-
-（中略）
-
+	（中略）
 	rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
-
-（中略）
-
+	（中略）
 	int n = rc * 2, i, interval = HZ / n;
 
 	/* Count down seconds */
@@ -161,16 +157,14 @@ static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
 			schedule_timeout_interruptible(interval);
 		} while (!signal_pending(current) && --i != 0);
 	} while (!signal_pending(current) && (id.data == 0 || --id.data != 0));
-
-（中略）
-}
+	（以下略）
 //}
 
 @<tt>{set_phys_id()}は関数ポインタであり、たとえばe1000ドライバの場合@<tt>{drivers/net/ethernet/intel/e1000/e1000_ethtool.c}に定義される@<tt>{e1000_set_phys_id()}が呼び出されます。
-ソースコードは次に示すとおりで、@<tt>{ETHTOOL_ID_ACTIVE}を指定して呼び出されたときは定数@<tt>{2}を返しており250[ms]間隔でLEDの点滅が変化すること、また@<tt>{ETHTOOL_ID_ON}や@<tt>{ETHTOOL_ID_OFF}が指定されると@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数を呼び出していることが分かりました。
+ソースコードは@<list>{e1000_set_phys_id}に示すとおりで、@<tt>{ETHTOOL_ID_ACTIVE}を指定して呼び出されたときは定数@<tt>{2}を返しており250[ms]間隔でLEDの点滅が変化すること、また@<tt>{ETHTOOL_ID_ON}や@<tt>{ETHTOOL_ID_OFF}が指定されると@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数を呼び出していることが分かりました。
 なお、@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数の中では、特定のレジスタを操作しています。
 これによって、RJ45ジャックに内蔵されたLEDに向けて電圧が印加され、点灯状態が変化するわけです。
-//emlist{
+//listw[e1000_set_phys_id][@<tt>{e1000_set_phys_id()}のソースコード]{
 static int e1000_set_phys_id(struct net_device *netdev,
 			     enum ethtool_phys_id_state state)
 {
@@ -209,10 +203,10 @@ static int e1000_set_phys_id(struct net_device *netdev,
 
 ==== 動作環境
 まず、DPDKが動作する環境において最も重要なハードウェアはNICです。
-DPDKは以前@<b>{Intel DPDK}という名前だったこともあり、2012年に初めて公開されたバージョン1.2.3r0@<fn>{dpdk-v1.2.3r0}ではigb(e1000)とixgbeにしか対応していませんでした。
-現在ではIntel以外の物理NICはもちろん、QEMUのvirtio-netやEC2のENA (Elastic Network Adapter)といった仮想NICにも対応しています。
+DPDKは以前@<b>{Intel DPDK}という名前だったこともあり、2012年に初めて公開されたバージョン1.2.3r0@<fn>{dpdk-v1.2.3r0}ではigb (e1000)とixgbeにしか対応していませんでした。
+現在ではIntel以外の物理NICのほか、QEMUのvirtio-netやEC2のENA (Elastic Network Adapter)といった仮想NICにも対応しています。
 どうせなら物理NICで動かしたいところですが、Intel以外のNICは10GbEやFPGA付きばかりなので覚悟が必要です。
-特にこだわりがなければ、Amazonで新品か中古かそもそも本物なのか分からない謎のIntel NICを買う方針でも良いと思います。
+特に目的がなければ、Amazonで新品か中古かそもそも本物なのか分からない謎のIntel NICを買う方針でも良いと思います。
 このとき複数のポートがあると、スイッチやルータのサンプルアプリケーションが動かしやすくなるかも知れませんね。
 そうして筆者は「Intel PRO/1000 PT Dual Port Server Adapter EXPI9402PT (Intel 82571EB Gigabit Ethernet Controller)」を4,930円で購入しました。
 //footnote[dpdk-v1.2.3r0][@<href>{http://git.dpdk.org/dpdk/log/?h=v1.2.3r0}]
@@ -223,18 +217,18 @@ DPDKではx86@<fn>{x86_64}やARMのほか、POWERまでサポートされてい�
 //footnote[x86_64][x86_64を含みます。]
 
 : マルチコアCPU
-DPDKに1コアを持っていかれるためです。
-もっとも、今となってはわざわざシングルコアCPUを用意するほうが難しいと思います。
+  DPDKに1コアを持っていかれるためです。
+  もっとも、今となってはわざわざシングルコアCPUを用意するほうが難しいと思います。
 : Hugepages対応
-DPDKではHugepagesを利用しています@<fn>{no-huge}。
-Hugepagesとは、仮想記憶におけるページサイズを通常の4KBから2MBや1GBに拡張できる仕組みのことです。
-これによって任意アドレスの変換情報がTLBに収まるほど少数のページテーブルに集約されやすくなり、TLBミスの抑制が期待できます。
-この仕組みはCPU側の対応が必要で、@<tt>{/proc/cpuinfo}の@<tt>{flags}に@<tt>{pse}(2MB)または@<tt>{pdpe1gb}(1GB)があれば大丈夫です。
-なお、DPDKのドキュメントによると「Hugepagesは全体で2GBほど予約すべし」といった記述があります。
-しかし、もっと小さくしても動くので、メモリが足りなくても心配する必要はありません。
+  DPDKではHugepagesを利用しています@<fn>{no-huge}。
+  Hugepagesとは、仮想記憶におけるページサイズを通常の4KBから2MBや1GBに拡張できる仕組みのことです。
+  これによって任意アドレスの変換情報がTLBに収まるほど少数のページテーブルに集約されやすくなり、TLBミスの抑制が期待できます。
+  この仕組みはCPU側の対応が必要で、@<tt>{/proc/cpuinfo}の@<tt>{flags}に@<tt>{pse} (2MB)または@<tt>{pdpe1gb} (1GB)があれば大丈夫です。
+  なお、DPDKのドキュメントによると「Hugepagesは全体で2GBほど予約すべし」といった記述があります。
+  しかし、もっと小さくしても動くので、メモリが足りなくても心配する必要はありません。
 : SSE4.2対応
-DPDK v17.08以降では、命令セットとしてSSE4.2を備えたCPUを要求するようになりました。
-とはいえ、Intel Core iシリーズの第一世代の(Nehalem)から実装されており、よほど古いCPUでなければ気にする必要はないでしょう。
+  DPDK v17.08以降では、命令セットとしてSSE4.2を備えたCPUを要求するようになりました。
+  とはいえ、Intel Core iシリーズの第一世代(Nehalem)から実装されており、よほど古いCPUでなければ気にする必要はないでしょう。
 //footnote[no-huge][@<tt>{--no-huge}オプションもあるようですが、見なかったことにします。]
 
 ところが今回用意できたCPUは「Intel Celeron E3400」という@<b>{よほど古いCPU}であり、SSE4.2対応の条件を満たせませんでした。
@@ -242,11 +236,10 @@ DPDK v17.08以降では、命令セットとしてSSE4.2を備えたCPUを要求
 そこで、そのバージョンを利用し、用意したCPUを使うことにします。
 DPDKが管理するポートIDが@<tt>{uint8_t}から@<tt>{uint16_t}に拡張されたなど多少の違いはありますが、やむを得ません。
 
-#@# Todo: Hugepagesで実メモリが確保されるの？
 以上を踏まえつつ動作環境を決めると、@<table>{table-environment}に示すとおりになりました。
 //tabooular[table-environment][動作環境]{
 =========>|<=======================================
-CPU       | Intel Celeron E3400 (2Core, pse, SSE3)
+CPU       | Intel Celeron E3400 (Dual Core, pse, SSE3)
 Memory    | 2GB
 NIC       | Intel 82571EB (Dual 1GbE)
 OS        | Ubuntu 18.04 LTS Server
@@ -259,7 +252,7 @@ Hugepages | 2MB@<m>{\times}512Pages
 
 まずやることはDPDKのビルドです。
 次に示すようにいくつかアプリケーションをインストールして、ソースコードからビルドします。
-//emlist{
+//cmd{
 $ sudo apt install build-essential libcap-dev python
 $ wget http://fast.dpdk.org/rel/dpdk-17.05.2.tar.gz
 $ tar zxvf dpdk-17.05.2.tar.gz
@@ -269,7 +262,7 @@ $ cd dpdk-stable-17.05.2/ && \
 
 その次はHugepagesの設定です。
 次に示すコマンドを実行します。
-//emlist{
+//cmdw{
 $ sudo sed -ie 's/\(GRUB_CMDLINE_LINUX=\)/#\1/g' /etc/default/grub
 $ echo 'GRUB_CMDLINE_LINUX="hugepages=512"' | sudo tee -a /etc/default/grub
 $ sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -281,29 +274,48 @@ $ sudo reboot
 さらにNICの設定です。
 次に示すように、NICをカーネルからDPDKの管理下におきます。
 この操作は再起動すると元に戻るので気をつけましょう@<fn>{modprobe}。
-//emlist{
+//cmdw{
 $ sudo modprobe uio_pci_generic
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --status
-TODO: 出力
+Network devices using DPDK-compatible driver
+============================================
+<none>
+Network devices using kernel driver
+===================================
+0000:01:00.0 '82571EB Gigabit Ethernet Controller 105e' if=enp1s0f0 drv=e1000e unused=uio_pci_generic
+0000:01:00.1 '82571EB Gigabit Ethernet Controller 105e' if=enp1s0f1 drv=e1000e unused=uio_pci_generic
+0000:03:00.0 'AR8131 Gigabit Ethernet 1063' if=enp3s0 drv=atl1c unused=uio_pci_generic *Active*
+  :
+  :
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --bind=uio_pci_generic 0000:01:00.0
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --bind=uio_pci_generic 0000:01:00.1
+$ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --status
+Network devices using DPDK-compatible driver
+============================================
+0000:01:00.0 '82571EB Gigabit Ethernet Controller 105e' drv=uio_pci_generic unused=
+0000:01:00.1 '82571EB Gigabit Ethernet Controller 105e' drv=uio_pci_generic unused=
+Network devices using kernel driver
+===================================
+0000:03:00.0 'AR8131 Gigabit Ethernet 1063' if=enp3s0 drv=atl1c unused=uio_pci_generic *Active*
+  :
+  :
 //}
 //footnote[modprobe][@<tt>{modprobe}については@<tt>{/etc/modules}にモジュール名を書いておけば起動時にロードしてくれます。@<tt>{dpdk-devbind.py}についてはsystemdのサービスを書いて起動時に実行するという方法があります。]
 
 そして最後に環境変数の設定です。
-以下のように設定します。
+次のように設定します。
 @<tt>{~/.bash_profile}かどこかに記述しても構いません。
-//emlist{
+//cmd{
 $ export RTE_SDK=~/dpdk-stable-17.05.2/
 $ export RTE_TARGET=x86_64-native-linuxapp-gcc
 //}
 
 これまでの操作でDPDKアプリケーションのビルドと実行が可能になります。
 実際、次のようなコマンドが実行できるはずです。
-//emlist{
+//cmd{
 $ cd $RTE_SDK/examples/helloworld
 $ make
-$ TODO: 実行
+$ sudo ./build/helloworld
 //}
 
 ==== DPDKアプリケーションの作成
@@ -315,9 +327,9 @@ https://github.com/lrks/hikare-nicnium
 //}
 
 ここでは、@<tt>{examples/ethtool}で利用している初期化処理を流用しました。
-これを除いた主な処理は次のとおりとなり、非常に簡単になります。
+これを省いた主な処理は@<list>{blink}のとおりとなり、非常に簡単になります。
 @<tt>{rte_eth_led_on()}と@<tt>{rte_eth_led_off()}を叩いているだけなので当然ですね。
-//emlist{
+//list[blink][DPDKでLEDを点滅させるコード]{
 static void control_led(uint8_t port_id, int flg)
 {
 	if (flg) {
@@ -345,6 +357,18 @@ void nicapp_main(uint8_t cnt_ports)
 }
 //}
 
+@<list>{blink}を実行すると、@<img>{blink1}や@<img>{blink2}のようにNICのLEDが交互に点灯します。
+//subfig[@<list>{blink}を実行した様子]{
+//image[blink1][あるNICのLEDが光る][scale=0.4]
+//image[blink2][異なるNICのLEDが光る][scale=0.4]
+//}
+
+とはいえ、これだけではあまりに寂しいため
+
+
+
+
+
 #@# Todo: 余力あれば
 #@# とはいえ、これだけではあまりに寂しいため～PWMに挑戦してみようと思う
 #@# デューティ比10段階くらいで。for(on){on();} for(off){off();}
@@ -353,13 +377,45 @@ void nicapp_main(uint8_t cnt_ports)
 
 
 == 発展課題
-#@# Todo: 余力あれば2
+ただ単にLEDを光らせただけでは物足りません。
+そこで、いくつか発展課題をこなしていきます。
+
+
+=== PWM制御
+LチカといえばPWMでしょう。
+LEDをPWMで制御すれば、点灯または消灯という状態に加えて「ほのかに光る」「そこそこ明るい」といった中間の状態を擬似的に作り出せます。
+これにはある期間における「LEDが点灯している時間」と「消灯している時間」の比率を制御する必要があり、今回のDPDKでは次のようなコードで実現できる@<fn>{sched}と考えていました。
+//emlist{
+static void led_pwm(uint8_t port_id, int ratio)
+{
+	int i;
+	int on = ratio % 10;
+	int off = 10 - on;
+
+	while (1) {
+		for (i=0; i<on; i++) rte_eth_led_on(port_id);
+		for (i=0; i<off; i++) rte_eth_led_off(port_id);
+	}
+}
+//}
+//footnote[sched][スケジューラの都合上、多少精度は悪くなるかも知れません。]
+
+ところが、このコードを実行すると常にLEDが点灯@<fn>{osc}してしまいます。
+原因は不明ですが、NIC側のレジスタ@<fn>{nic-reg}へのアクセスは頻繁に行えず、一定時間空けないといけないような印象を受けました@<fn>{tabun}。
+この一定時間というのは200msなど点滅が目視できるほど長く、PWM制御は諦めざるを得ません。
+ドライバを改変@<fn>{dpdk-driver}し、レジスタの書き込みに使われる@<tt>{E1000_WRITE_REG()}マクロの代わりに@<tt>{E1000_PCI_REG_WRITE_RELAXED()}+@<tt>{E1000_PCI_REG_ADDR()}マクロや@<tt>{E1000_WRITE_FLUSH()}というそれらしい名前のマクロも使ってみたものの、効果はありませんでした。
+//footnote[osc][わざわざオシロスコープでLEDに対する印加電圧を観測したので間違いありません。]
+//footnote[nic-reg][範囲が広いので「少なくともLED状態を設定するレジスタ」としておきます。]
+//footnote[tabun][データシートを読み込んでおらず、本当か疑わしいので「擬似的にそう見える」としてください。ちょうどPWMの話なので。]
+//footnote[dpdk-driver][DPDKなら改変したドライバの適用も簡単！]
+
 
 === BUZとioctl
 #@# MIDIで音を鳴らす
 #@# MIDIの構成はこんな感じ
 #@# MIDIメインメロディだけを鳴らす
 #@# indexingのためのアルゴリズムがあるので流用する
+
 
 === ethtoolで光れ！NICニウム
 #@# 本当にethtoolでは光らないの？
