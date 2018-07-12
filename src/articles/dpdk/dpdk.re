@@ -132,7 +132,7 @@ static int do_phys_id(int fd, struct ifreq *ifr)
 
 この@<tt>{ioctl()}を実行すると、カーネルの@<tt>{net/core/ethtool.c}に定義される@<tt>{ethtool_phys_id()}関数が呼ばれます。
 この関数のソースコードは@<list>{ethtool_phys_id}に示すとおりで、このコードからデバイスドライバの@<tt>{set_phys_id(dev, ETHTOOL_ID_ACTIVE)}の返り値から決定した周期にしたがい、@<tt>{set_phys_id(dev, ETHTOOL_ID_OFF)}または@<tt>{set_phys_id(dev, ETHTOOL_ID_ON)}によってLEDを点滅させていることが分かりました。
-//list[ethtool_phys_id][@<tt>{ethtool_phys_id()}のソースコード]{
+//list[ethtool_phys_id][ethtool_phys_id()のソースコード]{
 static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
 {
 	struct ethtool_value id;
@@ -164,7 +164,7 @@ static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
 ソースコードは@<list>{e1000_set_phys_id}に示すとおりで、@<tt>{ETHTOOL_ID_ACTIVE}を指定して呼び出されたときは定数@<tt>{2}を返しており250[ms]間隔でLEDの点滅が変化すること、また@<tt>{ETHTOOL_ID_ON}や@<tt>{ETHTOOL_ID_OFF}が指定されると@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数を呼び出していることが分かりました。
 なお、@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数の中では、特定のレジスタを操作しています。
 これによって、RJ45ジャックに内蔵されたLEDに向けて電圧が印加され、点灯状態が変化するわけです。
-//listw[e1000_set_phys_id][@<tt>{e1000_set_phys_id()}のソースコード]{
+//listw[e1000_set_phys_id][e1000_set_phys_id()のソースコード]{
 static int e1000_set_phys_id(struct net_device *netdev,
 			     enum ethtool_phys_id_state state)
 {
