@@ -3,3 +3,4 @@ PREDEF:
 
 CHAPS:
   - dpdk.re
+  - itezap.re
