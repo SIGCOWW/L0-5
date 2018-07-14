@@ -84,7 +84,7 @@ cos(\vec{A},\vec{B}) = \frac{\sum_{i=1}^{|V|}A_iB_i}{\sqrt{\sum_{i=1}^{|V|}A_i^2
 以下に今回集めた生物種と学名、件数を@<table>{dataset}示します。
 さらにその花または果物から連想できるデレマスのアイドルも示します。
 
-加えて@<table>{dataset}に載っているアイドルのイラストを掲載したいと思います。
+加えて@<table>{dataset}に載っているアイドルのイラストを@<img>{chara-list}に示します。
 
 //tabooular[dataset][使用した生物種とそのデータ数]{
 生物種名	|	学名	|	データ数	|	アイドル
@@ -98,6 +98,8 @@ cos(\vec{A},\vec{B}) = \frac{\sum_{i=1}^{|V|}A_iB_i}{\sqrt{\sum_{i=1}^{|V|}A_i^2
 桜	|	Prunus yedoensis	|	142	|	小早川紗枝
 柚子	|	Citrus junos	|	19	|	喜多見柚
 //}
+
+//image[chara-list][イラスト一覧][scale=0.7]
 
 == ももありよりももかおでした
 n-gram（n=2,3,4,5）の集合を対象として、各指標でバラとの類似度を計算しました。
