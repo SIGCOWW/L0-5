@@ -468,17 +468,20 @@ int main(int argc, char *argv[])
 //}
 
 ところが、このコードを実行しても期待通りの動作はしませんでした。
-まず、常時点灯を試すと頻繁に@<tt>{EPERM} (Operation not permitted)が返され、点灯時間を短くしようとしても無視されて引き伸ばされます。
+まず、常時点灯を試すと頻繁に@<tt>{EPERM} (Operation not permitted)が返され、反対に点灯時間を短くしようとすると無視されて引き伸ばされます。
 もっとも、後者に関しては前項の「PWM制御」で述べたのと同じ挙動という印象で、ethtoolとDPDKのどちらを使っても回避できないのかも知れません。残念！
 
 
 === BUZとioctl
+#@# pcspkr
 #@# MIDIで音を鳴らす
 #@# MIDIの構成はこんな感じ
 #@# MIDIメインメロディだけを鳴らす
 #@# indexingのためのアルゴリズムがあるので流用する
 #@# 1. DPDK/ethtool検討
 #@# 2. MIDI to TXT 実装
+#@#    on,Hz,time -> 1HZXXXXX
+#@#    off,time   -> 000XXXXX
 #@# 3. TXT to BEEP 実装
 #@# 4. 豪華なMIDI 実装
 
