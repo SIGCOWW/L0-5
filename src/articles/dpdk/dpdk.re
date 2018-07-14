@@ -16,7 +16,7 @@
 
 
 == DPDKとは
-DPDK (Data Plane Development Kit) とは何者なのか、その答えを求め我々は公式サイト@<fn>{dpdk-link}へアクセスした。
+DPDK (Data Plane Development Kit)とは何者なのか、その答えを求め我々は公式サイト@<fn>{dpdk-link}へアクセスした。
 曰く、「パケット処理を高速化できるライブラリ」で「Linuxの@<b>{ユーザランド}とFreeBSDで動く」そうです。
 Development Kitって書いているし、そんな気はしていました。
 //footnote[dpdk-link][@<href>{https://www.dpdk.org/}]
@@ -103,7 +103,7 @@ int rte_eth_led_off(uint16_t port_id);
 == 光れ！NICニウム
 ということで、DPDKでNICのLEDを光らせましょう。
 
-=== 冴えないNICの照らしかた LinuxカーネルSide
+=== ～冴えないNICの照らしかた LinuxカーネルSide～
 とはいえ、NICのLEDを光らせるというのは本当にDPDKを使わないと実現できないのでしょうか？
 そこで、まずはDPDKを使わずにNICの制御をLinuxカーネルに任せた場合でもLEDを光らせられるのか検討します。
 結論からいえば、LEDを自由に制御するためにはカーネルの改変が必要で敷居は高いです。
@@ -114,81 +114,85 @@ int rte_eth_led_off(uint16_t port_id);
 //list[ethtool][ethtoolから抜粋したソースコード]{
 static int do_phys_id(int fd, struct ifreq *ifr)
 {
-	int err;
-	struct ethtool_value edata;
+    int err;
+    struct ethtool_value edata;
 
-	edata.cmd = ETHTOOL_PHYS_ID;
-	edata.data = phys_id_time;
-	ifr->ifr_data = (caddr_t)&edata;
-	err = ioctl(fd, SIOCETHTOOL, ifr);
-	if (err < 0)
-		perror("Cannot identify NIC");
+    edata.cmd = ETHTOOL_PHYS_ID;
+    edata.data = phys_id_time;
+    ifr->ifr_data = (caddr_t)&edata;
+    err = ioctl(fd, SIOCETHTOOL, ifr);
+    if (err < 0)
+        perror("Cannot identify NIC");
 
-	return err;
+    return err;
 }
 //}
 //footnote[ioctl][厳密には「glibcの@<tt>{ioctl()}関数が@<tt>{ioctl}システムコールをラップして呼んでいる」のですが見逃してください。]
 //footnote[ethtool][@<href>{https://www.kernel.org/pub/software/network/ethtool/}]
 
 この@<tt>{ioctl()}を実行すると、カーネルの@<tt>{net/core/ethtool.c}に定義される@<tt>{ethtool_phys_id()}関数が呼ばれます。
-この関数のソースコードは@<list>{ethtool_phys_id}に示すとおりで、このコードからデバイスドライバの@<tt>{set_phys_id(dev, ETHTOOL_ID_ACTIVE)}の返り値から決定した周期にしたがい、@<tt>{set_phys_id(dev, ETHTOOL_ID_OFF)}または@<tt>{set_phys_id(dev, ETHTOOL_ID_ON)}によってLEDを点滅させていることが分かりました。
-//list[ethtool_phys_id][ethtool_phys_id()のソースコード]{
+この関数のソースコードは@<list>{ethtool_phys_id}に示すとおりで、このコードからデバイスドライバの@<tt>{set_phys_id(dev, ETHTOOL_ID_ACTIVE)}の返り値から決定した周期にしたがい、@<tt>{set_phys_id(dev, ETHTOOL_ID_OFF)}または@<tt>{set_phys_id(dev, ETHTOOL_ID_ON)}によってLEDを点滅させていることが分かりました@<fn>{ldd}。
+//listw[ethtool_phys_id][ethtool_phys_id()のソースコード]{
 static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
 {
-	struct ethtool_value id;
-	static bool busy;
-	const struct ethtool_ops *ops = dev->ethtool_ops;
-	int rc;
-	（中略）
-	rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
-	（中略）
-	int n = rc * 2, i, interval = HZ / n;
+    struct ethtool_value id;
+    static bool busy;
+    const struct ethtool_ops *ops = dev->ethtool_ops;
+    int rc;
+    （中略）
+    rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
+    （中略）
+    int n = rc * 2, i, interval = HZ / n;
 
-	/* Count down seconds */
-	do {
-		/* Count down iterations per second */
-		i = n;
-		do {
-			rtnl_lock();
-			rc = ops->set_phys_id(dev, (i & 1) ? ETHTOOL_ID_OFF : ETHTOOL_ID_ON);
-			rtnl_unlock();
-			if (rc)
-				break;
-			schedule_timeout_interruptible(interval);
-		} while (!signal_pending(current) && --i != 0);
-	} while (!signal_pending(current) && (id.data == 0 || --id.data != 0));
-	（以下略）
+    /* Count down seconds */
+    do {
+        /* Count down iterations per second */
+        i = n;
+        do {
+            rtnl_lock();
+            rc = ops->set_phys_id(dev, (i & 1) ? ETHTOOL_ID_OFF : ETHTOOL_ID_ON);
+            rtnl_unlock();
+            if (rc)
+                break;
+            schedule_timeout_interruptible(interval);
+        } while (!signal_pending(current) && --i != 0);
+    } while (!signal_pending(current) && (id.data == 0 || --id.data != 0));
+    （中略）
+    (void) ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE);
+    return rc;
+}
 //}
+//footnote[ldd][デバイスドライバ側で点滅させるNICもあるようですが、忘れたことにします。]
 
 @<tt>{set_phys_id()}は関数ポインタであり、たとえばe1000ドライバの場合@<tt>{drivers/net/ethernet/intel/e1000/e1000_ethtool.c}に定義される@<tt>{e1000_set_phys_id()}が呼び出されます。
 ソースコードは@<list>{e1000_set_phys_id}に示すとおりで、@<tt>{ETHTOOL_ID_ACTIVE}を指定して呼び出されたときは定数@<tt>{2}を返しており250[ms]間隔でLEDの点滅が変化すること、また@<tt>{ETHTOOL_ID_ON}や@<tt>{ETHTOOL_ID_OFF}が指定されると@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数を呼び出していることが分かりました。
 なお、@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数の中では、特定のレジスタを操作しています。
 これによって、RJ45ジャックに内蔵されたLEDに向けて電圧が印加され、点灯状態が変化するわけです。
-//listw[e1000_set_phys_id][e1000_set_phys_id()のソースコード]{
+//list[e1000_set_phys_id][e1000_set_phys_id()のソースコード]{
 static int e1000_set_phys_id(struct net_device *netdev,
-			     enum ethtool_phys_id_state state)
+                 enum ethtool_phys_id_state state)
 {
-	struct e1000_adapter *adapter = netdev_priv(netdev);
-	struct e1000_hw *hw = &adapter->hw;
+    struct e1000_adapter *adapter = netdev_priv(netdev);
+    struct e1000_hw *hw = &adapter->hw;
 
-	switch (state) {
-	case ETHTOOL_ID_ACTIVE:
-		e1000_setup_led(hw);
-		return 2;
+    switch (state) {
+    case ETHTOOL_ID_ACTIVE:
+        e1000_setup_led(hw);
+        return 2;
 
-	case ETHTOOL_ID_ON:
-		e1000_led_on(hw);
-		break;
+    case ETHTOOL_ID_ON:
+        e1000_led_on(hw);
+        break;
 
-	case ETHTOOL_ID_OFF:
-		e1000_led_off(hw);
-		break;
+    case ETHTOOL_ID_OFF:
+        e1000_led_off(hw);
+        break;
 
-	case ETHTOOL_ID_INACTIVE:
-		e1000_cleanup_led(hw);
-	}
+    case ETHTOOL_ID_INACTIVE:
+        e1000_cleanup_led(hw);
+    }
 
-	return 0;
+    return 0;
 }
 //}
 
@@ -252,12 +256,11 @@ Hugepages | 2MB@<m>{\times}512Pages
 
 まずやることはDPDKのビルドです。
 次に示すようにいくつかアプリケーションをインストールして、ソースコードからビルドします。
-//cmd{
+//cmdw{
 $ sudo apt install build-essential libcap-dev python
 $ wget http://fast.dpdk.org/rel/dpdk-17.05.2.tar.gz
 $ tar zxvf dpdk-17.05.2.tar.gz
-$ cd dpdk-stable-17.05.2/ && \
-    make install T=x86_64-native-linuxapp-gcc
+$ cd dpdk-stable-17.05.2/ && make install T=x86_64-native-linuxapp-gcc
 //}
 
 その次はHugepagesの設定です。
@@ -277,28 +280,9 @@ $ sudo reboot
 //cmdw{
 $ sudo modprobe uio_pci_generic
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --status
-Network devices using DPDK-compatible driver
-============================================
-<none>
-Network devices using kernel driver
-===================================
-0000:01:00.0 '82571EB Gigabit Ethernet Controller 105e' if=enp1s0f0 drv=e1000e unused=uio_pci_generic
-0000:01:00.1 '82571EB Gigabit Ethernet Controller 105e' if=enp1s0f1 drv=e1000e unused=uio_pci_generic
-0000:03:00.0 'AR8131 Gigabit Ethernet 1063' if=enp3s0 drv=atl1c unused=uio_pci_generic *Active*
-  :
-  :
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --bind=uio_pci_generic 0000:01:00.0
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --bind=uio_pci_generic 0000:01:00.1
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --status
-Network devices using DPDK-compatible driver
-============================================
-0000:01:00.0 '82571EB Gigabit Ethernet Controller 105e' drv=uio_pci_generic unused=
-0000:01:00.1 '82571EB Gigabit Ethernet Controller 105e' drv=uio_pci_generic unused=
-Network devices using kernel driver
-===================================
-0000:03:00.0 'AR8131 Gigabit Ethernet 1063' if=enp3s0 drv=atl1c unused=uio_pci_generic *Active*
-  :
-  :
 //}
 //footnote[modprobe][@<tt>{modprobe}については@<tt>{/etc/modules}にモジュール名を書いておけば起動時にロードしてくれます。@<tt>{dpdk-devbind.py}についてはsystemdのサービスを書いて起動時に実行するという方法があります。]
 
@@ -332,54 +316,37 @@ https://github.com/lrks/hikare-nicnium
 //list[blink][DPDKでLEDを点滅させるコード]{
 static void control_led(uint8_t port_id, int flg)
 {
-	if (flg) {
-		rte_eth_led_on(port_id);
-	} else {
-		rte_eth_led_off(port_id);
-	}
+    flg ? rte_eth_led_on(port_id) : rte_eth_led_off(port_id);
 }
 
 void nicapp_main(uint8_t cnt_ports)
 {
-	int i;
-	uint8_t id;
+    int i;
+    uint8_t id;
 
-	for (i=0; i<10; i++) {
-		for (id=0; id<cnt_ports; id++) {
-			control_led(id, (id + i) % 2);
-		}
-		sleep(1);
-	}
+    for (i=0; i<10; i++) {
+        for (id=0; id<cnt_ports; id++)
+            control_led(id, (id + i) % 2);
+        sleep(1);
+    }
 
-	for (id=0; id<cnt_ports; id++) {
-		control_led(id, 0);
-	}
+    for (id=0; id<cnt_ports; id++)
+        control_led(id, 0);
 }
 //}
 
 @<list>{blink}を実行すると、@<img>{blink1}や@<img>{blink2}のようにNICのLEDが交互に点灯します。
-//subfig[@<list>{blink}を実行した様子]{
-//image[blink1][あるNICのLEDが光る][scale=0.4]
-//image[blink2][異なるNICのLEDが光る][scale=0.4]
+//subfig[LEDが点灯する様子]{
+//image[blink1][あるNICのLEDが光る][scale=0.49]
+//image[blink2][異なるNICのLEDが光る][scale=0.49]
 //}
-
-とはいえ、これだけではあまりに寂しいため
-
-
-
-
-
-#@# Todo: 余力あれば
-#@# とはいえ、これだけではあまりに寂しいため～PWMに挑戦してみようと思う
-#@# デューティ比10段階くらいで。for(on){on();} for(off){off();}
-#@# 一応on();off();の周波数を出したり、ロジアナで観測してみたり…？
 
 
 
 == 発展課題
 ただ単にLEDを光らせただけでは物足りません。
 そこで、いくつか発展課題をこなしていきます。
-
+ただし、先に述べておくと最初のふたつは「要再提出」、最後がかろうじて@<emoji>{accept}という感じです。
 
 === PWM制御
 LチカといえばPWMでしょう。
@@ -388,26 +355,120 @@ LEDをPWMで制御すれば、点灯または消灯という状態に加えて�
 //emlist{
 static void led_pwm(uint8_t port_id, int ratio)
 {
-	int i;
-	int on = ratio % 10;
-	int off = 10 - on;
+    int i;
+    int on = ratio % (10 + 1);
+    int off = 10 - on;
 
-	while (1) {
-		for (i=0; i<on; i++) rte_eth_led_on(port_id);
-		for (i=0; i<off; i++) rte_eth_led_off(port_id);
-	}
+    while (1) {
+        for (i=0; i<on; i++) rte_eth_led_on(port_id);
+        for (i=0; i<off; i++) rte_eth_led_off(port_id);
+    }
 }
 //}
 //footnote[sched][スケジューラの都合上、多少精度は悪くなるかも知れません。]
 
 ところが、このコードを実行すると常にLEDが点灯@<fn>{osc}してしまいます。
-原因は不明ですが、NIC側のレジスタ@<fn>{nic-reg}へのアクセスは頻繁に行えず、一定時間空けないといけないような印象を受けました@<fn>{tabun}。
-この一定時間というのは200msなど点滅が目視できるほど長く、PWM制御は諦めざるを得ません。
-ドライバを改変@<fn>{dpdk-driver}し、レジスタの書き込みに使われる@<tt>{E1000_WRITE_REG()}マクロの代わりに@<tt>{E1000_PCI_REG_WRITE_RELAXED()}+@<tt>{E1000_PCI_REG_ADDR()}マクロや@<tt>{E1000_WRITE_FLUSH()}というそれらしい名前のマクロも使ってみたものの、効果はありませんでした。
+原因は不明ですが、NIC側のレジスタ@<fn>{nic-reg}へのアクセスが頻繁に行えないような、または消灯よりも点灯が優先されるような印象を受けました@<fn>{tabun}。
+一定時間待てばきちんと点灯と消灯が可能でしたが、この一定時間というのは200msなど点滅が目視できるほど長く、PWM制御は諦めざるを得ません。
+ドライバを改変@<fn>{dpdk-driver}し、レジスタの書き込みに使われる@<tt>{E1000_WRITE_REG()}マクロの代わりに@<tt>{E1000_PCI_REG_WRITE_RELAXED()}+@<tt>{E1000_PCI_REG_ADDR()}マクロや@<tt>{E1000_WRITE_FLUSH()}というそれらしい名前のマクロも使ってみたものの、効果はありませんでした。残念。
 //footnote[osc][わざわざオシロスコープでLEDに対する印加電圧を観測したので間違いありません。]
-//footnote[nic-reg][範囲が広いので「少なくともLED状態を設定するレジスタ」としておきます。]
+//footnote[nic-reg][主語が大きいので「少なくともLED状態を設定するレジスタ」としておきます。]
 //footnote[tabun][データシートを読み込んでおらず、本当か疑わしいので「擬似的にそう見える」としてください。ちょうどPWMの話なので。]
 //footnote[dpdk-driver][DPDKなら改変したドライバの適用も簡単！]
+#@# Todo: 余力があれば原因を調べる
+
+
+=== 光れ！NICニウム ～ethtool…こう…こう…こう…こう…へようこそ～
+少し前に「ethtoolではNICのLEDを自由に制御できない」と述べました。…本当にそうでしょうか？
+すでに@<list>{ethtool_phys_id}で示した@<tt>{ethtool_phys_id()}について、その抜粋@<list>{ethtool_phys_id_2}に示します。
+//list[ethtool_phys_id_2][ethtool_phys_id()のソースコード（抜粋）]{
+int rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
+
+int n = rc * 2, i, interval = HZ / n;
+do {
+	i = n;
+	do {
+		rc = ops->set_phys_id(dev, (i & 1) ? ETHTOOL_ID_OFF : ETHTOOL_ID_ON);
+		schedule_timeout_interruptible(interval);
+	} while (!signal_pending(current) && --i != 0);
+} while (!signal_pending(current));
+
+ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE);
+//}
+
+おおまかな処理の流れは次のとおりです。
+
+1. @<tt>{ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE)}でLEDの点灯状態を保存させる
+2. @<tt>{i}に偶数をセットする
+3. @<tt>{ops->set_phys_id(dev, ETHTOOL_ID_ON)}でLEDを点灯させる
+4. @<tt>{schedule_timeout_interruptible(interval)}で@<tt>{interval}tick間sleepしつつ、処理すべきSignalが来たら起きる
+5. @<tt>{signal_pending(current)}で処理すべきSignalが来ているか調べる
+6. 来ていたら処理を抜けて10.へ、何もなければ@<tt>{i}に奇数をセットする
+7. 今度は@<tt>{ops->set_phys_id(dev, ETHTOOL_ID_OFF)}でLEDを消灯させる
+8. 4.から6.までとほぼ同じ処理を行う
+9. 2.に戻る
+10. @<tt>{ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE)}で1.の状態を復元する
+
+よく見ると、4.のときにSignalを配送すればLEDの点灯時間を0から@<tt>{interval}tickまで任意に設定できます。
+その後にすぐ@<tt>{ethtool_phys_id()}を呼び直せば、より長い時間LEDが点灯しているように見えるかもしれません。
+また、LEDの消灯時間は1.でLEDが消灯している@<fn>{linkup}ならばもちろん任意で、これは10.によって直前の点灯状態に依存しないはずです。
+これらを踏まえ、まずは点灯のみに注目した実験コードを書いてみました。
+@<list>{hikare-ethtool}に示します。
+//footnote[linkup][具体的にはNICがLinkUpしていないときです。]
+//list[hikare-ethtool][ethtool_phys_id()でLEDを光らせようとしたコード]{
+#define ETHTOOL_LED_VALUE(arg) ((struct ethtool_led_value *)(arg))
+struct ethtool_led_value {
+    int fd;
+    struct ifreq *ifr;
+    int status;
+};
+
+void *ethtool_led_on(void *args)
+{
+    int oldtype;
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldtype);
+
+    struct ethtool_value edata;
+    edata.cmd = ETHTOOL_PHYS_ID;
+    edata.data = 0;
+    ETHTOOL_LED_VALUE(args)->ifr->ifr_data = (caddr_t)&edata;
+
+    int err = ioctl(ETHTOOL_LED_VALUE(args)->fd,
+                    SIOCETHTOOL, ETHTOOL_LED_VALUE(args)->ifr);
+    if (err < 0)
+        printf("ERROR: do_phys_id, %d\n", err);
+
+    ETHTOOL_LED_VALUE(args)->status = err;
+    return args;
+}
+
+int main(int argc, char *argv[])
+{
+    struct ifreq ifr;
+    memset(&ifr, 0, sizeof(struct ifreq));
+    strncpy(ifr.ifr_name, argv[1], IFNAMSIZ);
+
+    int fd = socket(AF_INET, SOCK_DGRAM, 0);
+    struct timespec req = { 0, 100 * (1000 * 1000) }; // 100ms
+    struct ethtool_led_value args = { fd, &ifr, 0 };
+    while (args.status >= 0) {
+        pthread_t thread;
+        pthread_create(&thread, NULL, ethtool_led_on, (void *)&args);
+        nanosleep(&req, NULL);
+        pthread_cancel(thread);
+
+        // sleepなし:常時点灯, あり:単発で100msだけ光らせる
+        sleep(1);
+    }
+
+    close(fd);
+    return 0;
+}
+//}
+
+ところが、このコードを実行しても期待通りの動作はしませんでした。
+まず、常時点灯を試すと頻繁に@<tt>{EPERM} (Operation not permitted)が返され、点灯時間を短くしようとしても無視されて引き伸ばされます。
+もっとも、後者に関しては前項の「PWM制御」で述べたのと同じ挙動という印象で、ethtoolとDPDKのどちらを使っても回避できないのかも知れません。残念！
 
 
 === BUZとioctl
@@ -417,19 +478,13 @@ static void led_pwm(uint8_t port_id, int ratio)
 #@# indexingのためのアルゴリズムがあるので流用する
 
 
-=== ethtoolで光れ！NICニウム
-#@# 本当にethtoolでは光らないの？
-#@# 0 ~ 250msなら光ったりするんじゃない？
-#@# ドライバを特定して周期を出して、それ以内でON/OFF、再ONしたりする
-#@# 別スレッドでioctl(ETHTOOL_ID_PHYS)的なのを発行してpthread_killする
-
-
 
 == おわりに
 SRG46ってご存知ですか？
 @<b>{空想上の}IPv4/v6トランスレータで、ペイロードまで変換するALG (Application Layer Gateway)の一種です。
-いま、あなたはDPDKを知っているはずであり、頑張ればSRG46が現実のものとなりますよ。
-本文中でいないものとしたnetmapほか流行りのP4で君だけのSRG46を作ろう！
+いま、あなたはDPDKを知っているはずであり、もしかしたらSRG46が現実のものとなるかも知れませんよ。
+本文中で存在しないものとしたnetmapほか流行りのP4@<fn>{p4}も使って君だけのSRG46を作ろう！
 でも、元ネタ@<fn>{nareruse}ではIPv4/v6アドレスのマッピングを自動で行っていましたね。
 これの実現方法？こまけぇこたぁいいんだよ！！
+//footnote[p4][@<href>{https://p4.org/} ペルソナ4ではない。]
 //footnote[nareruse][夏海公司, Ixy. "なれる！SE 9." KADOKAWA アスキー・メディアワークス. 2013.]
