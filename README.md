@@ -1,6 +1,7 @@
 # COSMIC L0 Vol.5
 [![CircleCI](https://circleci.com/gh/SIGCOWW/L0-5/tree/master.svg?style=svg&circle-token=69b13ecc5b50ee620ffb6ece7553e96f1e43b99f)](https://circleci.com/gh/SIGCOWW/L0-5/tree/master)
-C94で発行(?:した|予定の)技術系同人誌「COSMIC L0 Vol.5」のソースコードリポジトリです。
+
+C94「1日目西め05a SIGCOWW」で発行(?:した|予定の)技術系同人誌「COSMIC L0 Vol.5」のソースコードリポジトリです。
 [desk/template - SIGCOWW/desk](https://github.com/SIGCOWW/desk/tree/master/template) を基にしています。
 
 ## 執筆にあたって
