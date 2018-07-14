@@ -401,13 +401,14 @@ ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE);
 1. @<tt>{ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE)}でLEDの点灯状態を保存させる
 2. @<tt>{i}に偶数をセットする
 3. @<tt>{ops->set_phys_id(dev, ETHTOOL_ID_ON)}でLEDを点灯させる
-4. @<tt>{schedule_timeout_interruptible(interval)}で@<tt>{interval}tick間sleepしつつ、処理すべきSignalが来たら起きる
-5. @<tt>{signal_pending(current)}で処理すべきSignalが来ているか調べる
+4. @<tt>{schedule_timeout_interruptible(interval)}で@<tt>{interval}tick間sleepしつつ、処理すべきシグナルが来たら起きる
+5. @<tt>{signal_pending(current)}で処理すべきシグナルが来ているか調べる
 6. 来ていたら処理を抜けて10.へ、何もなければ@<tt>{i}に奇数をセットする
 7. 今度は@<tt>{ops->set_phys_id(dev, ETHTOOL_ID_OFF)}でLEDを消灯させる
 8. 4.から6.までとほぼ同じ処理を行う
 9. 2.に戻る
 10. @<tt>{ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE)}で1.の状態を復元する
+#@# Todo: sleepは起きてpendingは反応しないシグナルがあればいいなー
 
 よく見ると、4.のときにSignalを配送すればLEDの点灯時間を0から@<tt>{interval}tickまで任意に設定できます。
 その後にすぐ@<tt>{ethtool_phys_id()}を呼び直せば、より長い時間LEDが点灯しているように見えるかもしれません。
@@ -476,7 +477,10 @@ int main(int argc, char *argv[])
 #@# MIDIの構成はこんな感じ
 #@# MIDIメインメロディだけを鳴らす
 #@# indexingのためのアルゴリズムがあるので流用する
-
+#@# 1. DPDK/ethtool検討
+#@# 2. MIDI to TXT 実装
+#@# 3. TXT to BEEP 実装
+#@# 4. 豪華なMIDI 実装
 
 
 == おわりに
