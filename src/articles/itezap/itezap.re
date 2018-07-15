@@ -99,7 +99,7 @@ cos(\vec{A},\vec{B}) = \frac{\sum_{i=1}^{|V|}A_iB_i}{\sqrt{\sum_{i=1}^{|V|}A_i^2
 柚子	|	Citrus junos	|	19	|	喜多見柚
 //}
 
-//image[chara-list][イラスト一覧][scale=0.4]
+//image[chara-list][イラスト一覧][scale=0.3]
 
 
 == ももありよりももかおでした
