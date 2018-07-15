@@ -82,8 +82,24 @@ cos(\vec{A},\vec{B}) = \frac{\sum_{i=1}^{|V|}A_iB_i}{\sqrt{\sum_{i=1}^{|V|}A_i^2
 バラやイチゴなどのタンパク質のアミノ酸配列を集めます。
 今回はアミノ酸配列データベースUniProtから、学名で一致するデータをすべてダウンロードします。
 バラの場合「Rosa」で検索してヒットした配列をすべて対象とします。
-以下に今回集めた生物種と学名、件数を示します。
+以下に今回集めた生物種と学名、件数を@<table>{dataset}に示します。
 さらにその花または果物から連想できるデレマスのアイドルも示します。
+加えて@<table>{dataset}に載っているアイドルのイラストを@<img>{chara-list}に示します。
+
+//tabooular[dataset][使用した生物種とそのデータ数]{
+生物種名	|	学名	&	データ数	&	アイドル
+==========>|====&====&====
+バラ	|	Rosa	|	46,862	|	櫻井桃華
+いちご	|	Fragaria ananassa	|	769	|	橘ありす
+りんご	|	Malus domestica	|	2,472	|	十時愛梨
+ひまわり	|	Helianthus Annuus	|	54,266	|	龍崎薫
+ライラック	|	Syringa vulgaris	|	151	|	相葉夕美
+クローバー	|	Trifolium repens	|	372	|	緒方智絵里
+桜	|	Prunus yedoensis	|	142	|	小早川紗枝
+柚子	|	Citrus junos	|	19	|	喜多見柚
+//}
+
+//image[chara-list][イラスト一覧][scale=0.3]
 
 
 == ももありよりももかおでした
