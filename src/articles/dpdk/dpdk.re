@@ -12,6 +12,7 @@
 
 == はじめに
 あとでかく。
+#@# Todo: イントロで「テリーヌです」って点灯してる写真を乗せる？
 
 
 
@@ -103,7 +104,7 @@ int rte_eth_led_off(uint16_t port_id);
 == 光れ！NICニウム
 ということで、DPDKでNICのLEDを光らせましょう。
 
-=== ～冴えないNICの照らしかた LinuxカーネルSide～
+=== 冴えないNICの照らしかた ～LinuxカーネルSide～
 とはいえ、NICのLEDを光らせるというのは本当にDPDKを使わないと実現できないのでしょうか？
 そこで、まずはDPDKを使わずにNICの制御をLinuxカーネルに任せた場合でもLEDを光らせられるのか検討します。
 結論からいえば、LEDを自由に制御するためにはカーネルの改変が必要で敷居は高いです。
@@ -378,9 +379,9 @@ static void led_pwm(uint8_t port_id, int ratio)
 #@# Todo: 余力があれば原因を調べる
 
 
-=== 光れ！NICニウム ～ethtool…こう…こう…こう…こう…へようこそ～
+=== 光れ！NICニウム ～ethtoolこうこうこうこう部へようこそ～
 少し前に「ethtoolではNICのLEDを自由に制御できない」と述べました。…本当にそうでしょうか？
-すでに@<list>{ethtool_phys_id}で示した@<tt>{ethtool_phys_id()}について、その抜粋@<list>{ethtool_phys_id_2}に示します。
+すでに@<list>{ethtool_phys_id}で示した@<tt>{ethtool_phys_id()}について、その抜粋を@<list>{ethtool_phys_id_2}に示します。
 //list[ethtool_phys_id_2][ethtool_phys_id()のソースコード（抜粋）]{
 int rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
 
@@ -473,17 +474,89 @@ int main(int argc, char *argv[])
 
 
 === BUZとioctl
-#@# pcspkr
-#@# MIDIで音を鳴らす
-#@# MIDIの構成はこんな感じ
-#@# MIDIメインメロディだけを鳴らす
-#@# indexingのためのアルゴリズムがあるので流用する
-#@# 1. DPDK/ethtool検討
-#@# 2. MIDI to TXT 実装
-#@#    on,Hz,time -> 1HZXXXXX
-#@#    off,time   -> 000XXXXX
-#@# 3. TXT to BEEP 実装
-#@# 4. 豪華なMIDI 実装
+音楽を奏でつつ、NICのLEDが光ったら面白いと思いました。
+
+コンピュータで音を鳴らすといえば、pcspkr@<fn>{pcspkr}を@<tt>{ioctl()}で操作するのが一般的です[要出典]@<fn>{beep}。
+@<tt>{modprobe pcspkr}して@<list>{pcspkr}のようなコードを実行すると、@<tt>{freq} [Hz]の音が1秒間鳴ります。
+和音は出せない、つまり同時発音数は1つだけですが意外と綺麗な音を奏でてくれますよ。
+//list[pcspkr][pcspkrを操作するコード]{
+#define DEVICE_CONSOLE "/dev/tty0"
+#define CLOCK_TICK_RATE 1193180
+
+void pcspkr(int freq)
+{
+    int fd = open(DEVICE_CONSOLE, O_WRONLY);
+
+    ioctl(fd, KIOCSOUND, (CLOCK_TICK_RATE / (double)freq));
+    sleep(1);
+    ioctl(fd, KIOCSOUND, 0);
+
+    close(fd);
+}
+//}
+//footnote[pcspkr][BeepやBZ (Buzzer)のことです。]
+//footnote[beep][わざわざこんなことしなくとも@<tt>{beep}コマンドで鳴らせます。]
+#@# Todo: ALSA
+
+ここに周波数と時間を書いていけば音楽を奏でられますが、手でひとつずつ書いていくのは非常に手間です。
+そこで、SMF (Standard MIDI File)をパースして楽をしましょう。
+SMFとは、後述する「MIDIイベント」とそれを発行するタイミングが記録されたファイルです。
+イベントとタイミングはトラック(Track)という場所に格納されます。
+SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本のトラックを保持でき、各トラックに格納されたデータは他トラックと独立です。
+ここに含まれるMIDIイベントのうち、主なものは次のとおりとなっています@<fn>{hex}。
+//footnote[hex][()内は16進数。]
+
+: ノートオン (@<tt>{9n kk vv})
+  ノートナンバー@<tt>{kk}(key, 0~127)の音をチャンネル@<fn>{channel}@<tt>{n}(0~15)で鳴らす。
+  ピアノの鍵盤を押し込む速度、すなわち音の大きさを@<tt>{vv}(velocity, 0~127)で指定する。
+  @<tt>{vv}を@<tt>{00}とすると、次に述べる「ノートオフ」とほぼ同じとなる。
+: ノートオフ (@<tt>{8n kk vv} / @<tt>{9n kk 00})
+  チャンネル@<tt>{n}で鳴っているノートナンバー@<tt>{kk}の音を止める。
+  鍵盤から手を離す速度@<tt>{vv}を指定する。
+: ポリフォニックキープレッシャー (@<tt>{An kk vv})
+  チャンネル@<tt>{n}で鳴っているノートナンバー@<tt>{kk}の音を速度@<tt>{vv}で発音し直す。
+  ノートオンと同様に、@<tt>{vv}が@<tt>{00}ならばノートオフと同じ扱いになる。
+: チャンネルプレッシャー (@<tt>{Dn vv})
+  チャンネル@<tt>{n}で鳴っているすべての音を速度@<tt>{vv}で発音し直す。
+  @<tt>{vv}が@<tt>{00}ならばチャンネル@<tt>{n}の音をすべて消音する。
+: プログラムチェンジ (@<tt>{Cn pp})
+  チャンネル@<tt>{n}で鳴らす音のプログラム（音色）を@<tt>{pp}(program, 0~127)に変える。
+  番号と音色の対応はMIDI機器がサポートする規格によって決まる。
+: ピッチベンド (@<tt>{En mm ll})
+  チャンネル@<tt>{n}のピッチ（音高）を変える。
+  @<tt>{mm}と@<tt>{ll}はともに7bit、@<tt>{mm}をMSB、@<tt>{ll}をLSBとして0~16383@<fn>{pb}までのデータを構成する。
+: オールサウンドオフ / オールノートオフ (@<tt>{Bn 78} / @<tt>{Bn 7B})
+  チャンネル@<tt>{n}で鳴っているすべての音を止める。
+: リセットオールコントローラ (@<tt>{Bn 79})
+  チャンネル@<tt>{n}について設定値を初期化する。
+//footnote[channel][MACアドレスのようなものです。MIDI機器をデイジーチェーンで繋いだときに使われます。]
+//footnote[pb][範囲を-8192~8191として初期値0とすることも多いようですが、ここでは範囲0~16383の初期値8192とします。]
+
+なお、pcspkrに渡す周波数はノートナンバーとピッチを基に次のように計算できます@<fn>{freq}。
+//texequation{
+440 \times 2^{\left(\frac{\texttt{note}-69}{12}+\frac{\texttt{pitch}-8192}{4096\times12}\right)}
+//}
+//footnote[freq][@<href>{https://dsp.stackexchange.com/questions/1645/converting-a-pitch-bend-midi-value-to-a-normal-pitch-value}]
+
+これを踏まえてSMFをパースしていきます。
+Cは辛いので、一度PythonからパースしてCで扱いやすい形にしましょう。
+pretty_midi@<fn>{pretty_midi}というSMFを扱うライブラリを使いつつコードを書くと@<list>{midi-simple}のようになります。
+//list[midi-simple][SMFをパースするコード（シンプル版）]{
+TODO
+//}
+//footnote[pretty_midi][@<href>{https://github.com/craffel/pretty-midi}]
+
+ところで、以前にpcspkrでは和音が出せないことを述べました。
+そのため、このコードでは「先着順」で音を鳴らしています。
+これでは、主旋律ではなく伴奏だけが鳴ってしまうことも考えられ、pcspkrが奏でる曲がよく分からなくなってしまいそうです。
+#@# Todo: フラグを～して実際に聞いてみよう！
+
+#@# Todo: そこでメインメロディだけ抜き出すアルゴリズムがあって～
+#@# indexingのためのアルゴリズムなんだけど～
+#@# 10ch目(09)はGMではパーカッションチャネルとされているので～
+#@# GMの音色リストでメロディとして有効なのを～
+#@# もし論文で打楽器のことが触れられていなければ、コントロールチェンジの項は削除する。
+
 
 
 == おわりに
