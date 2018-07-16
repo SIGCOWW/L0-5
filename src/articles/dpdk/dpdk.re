@@ -510,7 +510,7 @@ SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本�
   ノートナンバー@<tt>{kk}(key, 0~127)の音をチャンネル@<fn>{channel}@<tt>{n}(0~15)で鳴らす。
   ピアノの鍵盤を押し込む速度、すなわち音の大きさを@<tt>{vv}(velocity, 0~127)で指定する。
   @<tt>{vv}を@<tt>{00}とすると、次に述べる「ノートオフ」とほぼ同じとなる。
-: ノートオフ (@<tt>{8n kk vv} / @<tt>{9n kk 00})
+: ノートオフ (@<tt>{8n kk vv})
   チャンネル@<tt>{n}で鳴っているノートナンバー@<tt>{kk}の音を止める。
   鍵盤から手を離す速度@<tt>{vv}を指定する。
 : ポリフォニックキープレッシャー (@<tt>{An kk vv})
@@ -540,22 +540,32 @@ SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本�
 
 これを踏まえてSMFをパースしていきます。
 Cは辛いので、一度PythonからパースしてCで扱いやすい形にしましょう。
-pretty_midi@<fn>{pretty_midi}というSMFを扱うライブラリを使いつつコードを書くと@<list>{midi-simple}のようになります。
+mido@<fn>{mido}というSMFを扱うライブラリを使いつつコードを書くと@<list>{midi-simple}のようになります。
 //list[midi-simple][SMFをパースするコード（シンプル版）]{
-TODO
+Todo: なんとかする
+https://github.com/lrks/hikare-nicnium/blob/8aadf5be24/pcspkr/mid2txt.py
 //}
-//footnote[pretty_midi][@<href>{https://github.com/craffel/pretty-midi}]
+//footnote[mido][@<href>{https://github.com/olemb/mido}]
+#@# Todo: track == 0 and ch == 0 だけ抜き出すとファイルによってはいい感じになるかも
+
+#@# Todo: skylineアルゴリズムから説明する
+#@# 引用なし
+#@# 結構いい感じなんだが～
 
 ところで、以前にpcspkrでは和音が出せないことを述べました。
 そのため、このコードでは「先着順」で音を鳴らしています。
-これでは、主旋律ではなく伴奏だけが鳴ってしまうことも考えられ、pcspkrが奏でる曲がよく分からなくなってしまいそうです。
-#@# Todo: フラグを～して実際に聞いてみよう！
+これでは、主旋律ではなく伴奏だけが鳴ってしまうことも考えられ、pcspkrが奏でる曲がよく分からなくなってしまいそうです@<fn>{arg2}。
+//footnote[arg2][@<tt>{argv[2]}にファイル名を書けばそこにSMFが出力されるので試してみよう！]
 
-#@# Todo: そこでメインメロディだけ抜き出すアルゴリズムがあって～
-#@# indexingのためのアルゴリズムなんだけど～
+そこで、Ozcanらによって提案@<fn>{ozcan2015}された主旋律の抽出手法@<fn>{mainmelody}を適用してみます。
+この～
+//footnote[ozcan2015][Giyasettin Ozcan, Cihan Isikhan, Adil Alpkocak. "Melody extraction on MIDI music files." 7th IEEE International Symposium on Multimedia, pp.414-422, 2005.]
+//footnote[mainmelody][音楽情報検索(MIR)で用いられるそうです。]
+
 #@# 10ch目(09)はGMではパーカッションチャネルとされているので～
 #@# GMの音色リストでメロディとして有効なのを～
 #@# もし論文で打楽器のことが触れられていなければ、コントロールチェンジの項は削除する。
+#@# Todo: 交互点灯すればPWMとかの反応が遅いのを緩和できる
 
 
 
