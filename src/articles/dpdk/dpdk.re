@@ -547,10 +547,13 @@ https://github.com/lrks/hikare-nicnium/blob/8aadf5be24/pcspkr/mid2txt.py
 //}
 //footnote[mido][@<href>{https://github.com/olemb/mido}]
 #@# Todo: track == 0 and ch == 0 だけ抜き出すとファイルによってはいい感じになるかも
+#@# 泥臭い処理をゴリゴリ書いていく、こういうときだけ心の平穏が得られる
 
 #@# Todo: skylineアルゴリズムから説明する
 #@# 引用なし
 #@# 結構いい感じなんだが～
+#@# 鳴らせる中で最も高い音を鳴らす…という説明は不適切か
+#@# アイデア自体は UitdenbogerdとZobel Uitdenbogerd, Alexandra, and Justin Zobel. "Melodic matching techniques for large music databases." Proceedings of the seventh ACM international conference on Multimedia (Part 1). ACM, 1999. で提案された「All-Mono」が初出のようです。その後いろいろ改変されたりしています…。
 
 ところで、以前にpcspkrでは和音が出せないことを述べました。
 そのため、このコードでは「先着順」で音を鳴らしています。
@@ -578,3 +581,121 @@ SRG46ってご存知ですか？
 これの実現方法？こまけぇこたぁいいんだよ！！
 //footnote[p4][@<href>{https://p4.org/} ペルソナ4ではない。]
 //footnote[nareruse][夏海公司, Ixy. "なれる！SE 9." KADOKAWA アスキー・メディアワークス. 2013.]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+はじめに
+11月29日って何の日か～
+そう、いいNICの日ですね。
+ところで、晴れの日
+肉の日
+照ラーヌ
+照リーヌ
+
+DPDKで光らして～
+あと寂しかったのでMIDIを奏でる～
+メロディライン分離もちょっとだけ行う～
+
+
+
+DPDK
+画像入れる
+「画像が少なかったので苦し紛れに入れたDPDKのロゴ」
+34行目, 「それはそれで価値のあるとおもうが、DPDKは～ライブラリです。」にする
+50, コンテキストスイッチによるオーバヘッドが避けられない
+66, DPDK側で
+369,スケジューラもあるしリアルタイムOSでもないので精度が悪くなるのは承知のうえです
+
+349,3つの発展課題を～
+354,画像のように擬似的に～「全灯」「消灯」 vs 「ほのかに～」「そこそこ明るい」
+503,されたいわゆる「MIDIファイル」です
+542,形に変換、beepを鳴らすプログラムはそのまま鳴らすだけ！って形にしましょう。
+
+
+これを踏まえてSMFをパースしていきます。
+Cは辛いので、一度PythonからパースしてCで扱いやすい形にしましょう。
+mido@<fn>{mido}というライブラリを用いて実装したものがこちらになります。
+//list[midi-simple][SMFをパースするコード（シンプル版）]{
+Todo: なんとかする
+https://github.com/lrks/hikare-nicnium/blob/8aadf5be24/pcspkr/mid2txt.py
+//}
+//footnote[mido][@<href>{https://github.com/olemb/mido}]
+
+そういえば、以前にpcspkrで和音が～
+ところが、MIDIではそういうこともある。
+そこで、「先着順」で～
+その間に来たやつは流れて行きます。流しそうめんみたいですね。
+「画像」なって居るところを図示
+でも主旋律が～
+
+主旋律抽出ってのはMIRで結構やられている～
+まずskylineってのがあって～
+先着順とピッチが高い順になります。
+なって居る最中に他のが来たら長さを変えてでも高いほうへいこうとします。
+基本的にはこうだ～
+「画像」
+打楽器チャネル(0オリジン)や打楽器を排除したりすればいい感じになる～
+
+あとOzcanの方法も実装してみた～
+けどパラメータをチューニングしたらいい感じになった。
+つまりチューニングしていないと・・・
+あと別の方法も実装してなんかいい感じになった～
+
+#@# Todo: track == 0 and ch == 0 だけ抜き出すとファイルによってはいい感じになるかも
+#@# Todo: skylineアルゴリズムから説明する
+#@# 引用なし
+#@# 結構いい感じなんだが～
+
+ところで、以前にpcspkrでは和音が出せないことを述べました。
+そのため、このコードでは「先着順」で音を鳴らしています。
+これでは、主旋律ではなく伴奏だけが鳴ってしまうことも考えられ、pcspkrが奏でる曲がよく分からなくなってしまいそうです@<fn>{arg2}。
+//footnote[arg2][@<tt>{argv[2]}にファイル名を書けばそこにSMFが出力されるので試してみよう！]
+
+そこで、Ozcanらによって提案@<fn>{ozcan2015}された主旋律の抽出手法@<fn>{mainmelody}を適用してみます。
+この～
+//footnote[ozcan2015][Giyasettin Ozcan, Cihan Isikhan, Adil Alpkocak. "Melody extraction on MIDI music files." 7th IEEE International Symposium on Multimedia, pp.414-422, 2005.]
+//footnote[mainmelody][音楽情報検索(MIR)で用いられるそうです。]
+
+#@# 10ch目(09)はGMではパーカッションチャネルとされているので～
+#@# GMの音色リストでメロディとして有効なのを～
+#@# もし論文で打楽器のことが触れられていなければ、コントロールチェンジの項は削除する。
+#@# Todo: 交互点灯すればPWMとかの反応が遅いのを緩和できる
