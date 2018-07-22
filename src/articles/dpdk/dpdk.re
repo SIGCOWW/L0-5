@@ -15,7 +15,6 @@
 #@# Todo: イントロで「テリーヌです」って点灯してる写真を乗せる？
 #@# DPDKで光らして～
 #@# あと寂しかったのでMIDIを奏でる～
-#@# メロディライン分離もちょっとだけ行う～
 #@# TODO: レジスタ弄ったらステータスLEDも点けられないかなぁ
 
 
@@ -549,14 +548,14 @@ SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本�
 
 これを踏まえてSMFをパースしていきます。
 Cは辛いので、一度PythonからパースしてCで扱いやすいテキスト形式に変換しましょう。
-mido@<fn>{mido}というライブラリを用いて実装したものがこちらになります。
-//list[midi-simple][SMFをパースするコード（シンプル版）]{
-Todo: なんとかする
-https://github.com/lrks/hikare-nicnium/blob/8aadf5be24/pcspkr/mid2txt.py
+mido@<fn>{mido}というライブラリを用いて実装@<fn>{doro}したものがこちらになります。
+//emlist{
+https://github.com/lrks/hikare-nicnium/blob/master/pcspkr/mid2txt.py
+$ ./mid2txt.py --help
+usage: mid2txt.py [-h] [-m METHOD] inputFile [outputFile]
 //}
 //footnote[mido][@<href>{https://github.com/olemb/mido}]
-#@# Todo: track == 0 and ch == 0 だけ抜き出すとファイルによってはいい感じになるかも
-#@# 泥臭い処理をゴリゴリ書いていく、こういうときだけ心の平穏が得られる
+//footnote[doro][泥臭い処理を書くことになります。こういうときだけ心の平穏が得られる。]
 
 そういえば、以前にpcspkrでは和音が出せないことを述べました。
 ところが、MIDIではそういうこともある。
@@ -585,9 +584,10 @@ Ozcanらによって提案@<fn>{ozcan2015}された主旋律の抽出手法@<fn>
 //footnote[ozcan2015][Giyasettin Ozcan, Cihan Isikhan, Adil Alpkocak. "Melody extraction on MIDI music files." 7th IEEE International Symposium on Multimedia, pp.414-422, 2005.]
 //footnote[mainmelody][音楽情報検索(MIR)で用いられるそうです。]
 
+#@# Velusamy, Sudha, Balaji Thoshkahna, and K. R. Ramakrishnan. "A novel melody line identification algorithm for polyphonic MIDI music." International Conference on Multimedia Modeling. Springer, Berlin, Heidelberg, 2007.
 #@# 10ch目(09)はGMではパーカッションチャネルとされているので～
 #@# GMの音色リストでメロディとして有効なのを～
-
+#@# 極端に短すぎるのを省いたりしてるので参考にはなったが～
 
 
 == おわりに
