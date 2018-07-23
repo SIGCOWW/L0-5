@@ -1,7 +1,8 @@
 = おNICの照リーヌ DPDK仕立て
 @<author>{スパッツクリックカタルシス！, lrks}
 //profile{
-プロフィールを書く。
+今日はだいたい07月21日です。
+艦娘が戦意高揚した回数の見えるメガネ、ディープラーニングってやつでなんとかなりませんか。
 //}
 
 //lead{
@@ -13,13 +14,12 @@
 == はじめに
 #@# Todo: 11月29日って何の日か～いいNICの日ですね、ところで、晴れの日～
 #@# Todo: イントロで「テリーヌです」って点灯してる写真を乗せる？
-#@# DPDKで光らして～
-#@# あと寂しかったのでMIDIを奏でる～
-#@# TODO: レジスタ弄ったらステータスLEDも点けられないかなぁ
+#@# Todo: DPDKで光らして～
+#@# Todo: あと寂しかったのでMIDIを奏でる～
+
 
 
 == DPDKとは
-#@# Todo: 画像: 画像が少なかったので苦し紛れに入れたDPDKのロゴ
 DPDK (Data Plane Development Kit)とは何者なのか、その答えを求め我々は公式サイト@<fn>{dpdk-link}へアクセスした。
 曰く、「パケット処理を高速化できるライブラリ」で「Linuxの@<b>{ユーザランド}とFreeBSDで動く」そうです。
 Development Kitって書いているし、そんな気はしていました。
@@ -352,7 +352,6 @@ void nicapp_main(uint8_t cnt_ports)
 ただし、先に述べておくと最初のふたつは「要再提出」、最後がかろうじて@<emoji>{accept}という感じです。
 
 === PWM制御
-#@# Todo: 画像のように擬似的に～「全灯」「消灯」 vs 「ほのかに～」「そこそこ明るい」
 LチカといえばPWMでしょう。
 LEDをPWMで制御すれば、点灯または消灯という状態に加えて「ほのかに光る」「そこそこ明るい」といった中間の状態を擬似的に作り出せます。
 これにはある期間における「LEDが点灯している時間」と「消灯している時間」の比率を制御する必要があり、今回のDPDKでは次のようなコードで実現できる@<fn>{sched}と考えていました。
@@ -371,11 +370,6 @@ static void led_pwm(uint8_t port_id, int ratio)
 //}
 //footnote[sched][RTOSではないため精度は悪くなりますが、承知の上です。]
 
-悪くなるのは承知の上です。]
-
-
-スケジューラの都合上、多少精度は悪くなるかも知れません。]
-
 ところが、このコードを実行すると常にLEDが点灯@<fn>{osc}してしまいます。
 原因は不明ですが、NIC側のレジスタ@<fn>{nic-reg}へのアクセスが頻繁に行えないような、または消灯よりも点灯が優先されるような印象を受けました@<fn>{tabun}。
 一定時間待てばきちんと点灯と消灯が可能でしたが、この一定時間というのは200msなど点滅が目視できるほど長く、PWM制御は諦めざるを得ません。
@@ -385,6 +379,7 @@ static void led_pwm(uint8_t port_id, int ratio)
 //footnote[tabun][データシートを読み込んでおらず、本当か疑わしいので「擬似的にそう見える」としてください。ちょうどPWMの話なので。]
 //footnote[dpdk-driver][DPDKなら改変したドライバの適用も簡単！]
 #@# Todo: 余力があれば原因を調べる
+#@# TODO: レジスタ弄ったらステータスLEDも点けられないかなぁ
 
 
 === 光れ！NICニウム ～ethtoolこうこうこうこう部へようこそ～
@@ -417,7 +412,6 @@ ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE);
 8. 4.から6.までとほぼ同じ処理を行う
 9. 2.に戻る
 10. @<tt>{ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE)}で1.の状態を復元する
-#@# Todo: sleepは起きてpendingは反応しないシグナルがあればいいなー
 
 よく見ると、4.のときにSignalを配送すればLEDの点灯時間を0から@<tt>{interval}tickまで任意に設定できます。
 その後にすぐ@<tt>{ethtool_phys_id()}を呼び直せば、より長い時間LEDが点灯しているように見えるかもしれません。
@@ -486,7 +480,7 @@ int main(int argc, char *argv[])
 
 コンピュータで音を鳴らすといえば、pcspkr@<fn>{pcspkr}を@<tt>{ioctl()}で操作するのが一般的です[要出典]@<fn>{beep}。
 @<tt>{modprobe pcspkr}して@<list>{pcspkr}のようなコードを実行すると、@<tt>{freq} [Hz]の音が1秒間鳴ります。
-和音は出せない、つまり同時発音数は1つだけですが意外と綺麗な音を奏でてくれますよ。
+和音は出せない、つまり同時発音数は1つだけですが意外と綺麗な音を奏でてくれますよ@<fn>{alsa}。
 //list[pcspkr][pcspkrを操作するコード]{
 #define DEVICE_CONSOLE "/dev/tty0"
 #define CLOCK_TICK_RATE 1193180
@@ -529,15 +523,15 @@ SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本�
   @<tt>{vv}が@<tt>{00}ならばチャンネル@<tt>{n}の音をすべて消音する。
 : プログラムチェンジ (@<tt>{Cn pp})
   チャンネル@<tt>{n}で鳴らす音のプログラム（音色）を@<tt>{pp}(program, 0~127)に変える。
-  番号と音色の対応はMIDI機器がサポートする規格によって決まる。
+  音色にはピアノや打楽器などがあり、番号との対応は機器がサポートする規格によって決まる。
 : ピッチベンド (@<tt>{En mm ll})
-  チャンネル@<tt>{n}のピッチ（音高）を変える。
+  チャンネル@<tt>{n}のピッチ（音高）を微調整する。
   @<tt>{mm}と@<tt>{ll}はともに7bit、@<tt>{mm}をMSB、@<tt>{ll}をLSBとして0~16383@<fn>{pb}までのデータを構成する。
 : オールサウンドオフ / オールノートオフ (@<tt>{Bn 78} / @<tt>{Bn 7B})
   チャンネル@<tt>{n}で鳴っているすべての音を止める。
 : リセットオールコントローラ (@<tt>{Bn 79})
   チャンネル@<tt>{n}について設定値を初期化する。
-//footnote[channel][MACアドレスのようなものです。MIDI機器をデイジーチェーンで繋いだときに使われます。]
+//footnote[channel][機器アドレスのようなものです。GM (General MIDI)という規格では10番目のチャンネルが打楽器専用など、チャンネル番号自体が意味を持つこともあります。]
 //footnote[pb][範囲を-8192~8191として初期値0とすることも多いようですが、ここでは範囲0~16383の初期値8192とします。]
 
 なお、pcspkrに渡す周波数はノートナンバーとピッチを基に次のように計算できます@<fn>{freq}。
@@ -558,36 +552,36 @@ usage: mid2txt.py [-h] [-m METHOD] inputFile [outputFile]
 //footnote[doro][泥臭い処理を書くことになります。こういうときだけ心の平穏が得られる。]
 
 そういえば、以前にpcspkrでは和音が出せないことを述べました。
-ところが、MIDIではそういうこともある。
-そこで、「先着順」で～そのため、このコードでは「先着順」で音を鳴らしています。
-その間に来たやつは流れて行きます。流しそうめんみたいですね。
-「画像」なって居るところを図示
-でも主旋律が～
-これでは、主旋律ではなく伴奏だけが鳴ってしまうことも考えられ、pcspkrが奏でる曲がよく分からなくなってしまいそう
+これでは、Monophonic（単音） MIDIしか奏でられません。
+そこで、Polyphonic（多音） MIDIも@<bou>{それなりに}奏でられるよう「先着順」で音を鳴らしています。
+その様子が@<img>{simple}で、発音中に来たイベントは無視されて流れていきます。
+流しそうめんみたいですね。
+//image[simple][MIDIイベントを「先着順」で発音する様子]
 
-#@# Todo: skylineアルゴリズムから説明する
-#@# アイデア自体は UitdenbogerdとZobel Uitdenbogerd, Alexandra, and Justin Zobel. "Melodic matching techniques for large music databases." Proceedings of the seventh ACM international conference on Multimedia (Part 1). ACM, 1999. で提案された「All-Mono」が初出のようです。その後いろいろ改変されたりしています…。
-主旋律抽出ってのはMIRで結構やられている～
-まずskylineってのがあって～
-先着順とピッチが高い順になります。
-なって居る最中に他のが来たら長さを変えてでも高いほうへいこうとします。
-基本的にはこうだ～
-「画像」
-打楽器チャネル(0オリジン)や打楽器を排除したりすればいい感じになる～
+ただ、この方法では主旋律ではなく伴奏だけが鳴ってしまい、曲がよく分からなくなってしまいそうです。
+実は、Polyphonic MIDIから主旋律を抽出してMonophonic MIDIにする@<fn>{mir}のは音楽情報検索(MIR)において必要なタスクのようで、そのためのアルゴリズムがいくつか提案されています。
+その中でも有名なのが、Skyline@<fn>{skyline}と呼ばれる手法です。
+この手法で@<img>{skyline}のように「先着順」かつ「なるべく高い音」を鳴らそうとします@<fn>{asyu}。
+実際に試してみると、主旋律の音高が高い曲@<fn>{animesong}においては、ほぼ主旋律だけを鳴らせました。
+//image[skyline][Skylineによる発音の様子]
+//footnote[mir][正確には「特徴的な情報を抽出し検索しやすい形にする」処理です。]
+//footnote[skyline][「Alexandra Uitdenbogerd, Justin Zobel. "Melodic matching techniques for large music databases." Proceedings of the seventh ACM international conference on Multimedia. ACM, 1999.」で提案された「All-Mono」が基になっているようです。]
+//footnote[asyu][一回の発音時間を制限するなどいくつかの亜種があるようです。君だけのSkylineを作ろう！]
+//footnote[animesong][具体的にはアニソンとボカロの曲です。]
 
-
-あとOzcanの方法も実装してみた～
-Ozcanらによって提案@<fn>{ozcan2015}された主旋律の抽出手法@<fn>{mainmelody}を適用してみます。
-けどパラメータをチューニングしたらいい感じになった。
-つまりチューニングしていないと・・・
-あと別の方法も実装してなんかいい感じになった～
-//footnote[ozcan2015][Giyasettin Ozcan, Cihan Isikhan, Adil Alpkocak. "Melody extraction on MIDI music files." 7th IEEE International Symposium on Multimedia, pp.414-422, 2005.]
-//footnote[mainmelody][音楽情報検索(MIR)で用いられるそうです。]
-
-#@# Velusamy, Sudha, Balaji Thoshkahna, and K. R. Ramakrishnan. "A novel melody line identification algorithm for polyphonic MIDI music." International Conference on Multimedia Modeling. Springer, Berlin, Heidelberg, 2007.
-#@# 10ch目(09)はGMではパーカッションチャネルとされているので～
-#@# GMの音色リストでメロディとして有効なのを～
-#@# 極端に短すぎるのを省いたりしてるので参考にはなったが～
+とはいえ、それ以外の曲も奏でたかったため、他の手法も試してみます。
+具体的には、特徴的なチャンネルを選択・結合してSkylineを適用する手法@<fn>{ozcan2005}や、ノートの数や種類から主旋律のトラックやチャンネルを抽出する手法@<fn>{velusamy2007}です。
+しかし、残念ながら良い結果は得られませんでした。
+伴奏まで抽出されてしまい、奏でる曲がよく分かりません。
+それでも、前処理として述べられていた「打楽器は伴奏なので除く」「発音時間が0.05秒など短すぎるノートはノイズの可能性が高い」というコツは有効でした。
+お役立ちです。
+でも、AIってやつでなんとかしてほしいですね@<fn>{sigcoww}。
+欲を言えば、WAVファイルからMonophonic MIDIへ変換して欲しいです。
+AIでなんとかできませんか@<fn>{sigcoww2}。
+//footnote[ozcan2005][Giyasettin Ozcan, Cihan Isikhan, Adil Alpkocak. "Melody extraction on MIDI music files." 7th IEEE International Symposium on Multimedia, pp.414-422, 2005.]
+//footnote[velusamy2007][Sudha Velusamy, Balaji Thoshkahna, K.R.Ramakrishnan. "A novel melody line identification algorithm for polyphonic MIDI music." International Conference on Multimedia Modeling. Springer, Berlin, Heidelberg, 2007.]
+//footnote[こう書けば他のSIGCOWWメンバーがなんとかしてくれるんじゃないですかね。]
+//footnote[他のメンバーが以下略。2回書いたのでアピールが2倍になった。]
 
 
 == おわりに
