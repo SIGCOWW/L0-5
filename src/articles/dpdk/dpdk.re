@@ -1,8 +1,10 @@
 = おNICの照リーヌ DPDK仕立て
 @<author>{スパッツクリックカタルシス！, lrks}
 //profile{
-今日はだいたい07月21日です。
-艦娘が戦意高揚した回数の見えるメガネ、ディープラーニングってやつでなんとかなりませんか。
+中学卒業後、高校や大学にも行かず、最近は2年間入院していましたが就職できました。
+こじらせてしまい、初任給で抱き枕カバーを追加購入してしまいました。
+杏ちゃんごめんなさい。響ちゃんと皐月ちゃんかわいいです。
+ところで、艦娘が戦意高揚した回数の見えるメガネ、ディープラーニングってやつでなんとかなりませんか。
 //}
 
 //lead{
@@ -12,10 +14,29 @@
 
 
 == はじめに
-#@# Todo: 11月29日って何の日か～いいNICの日ですね、ところで、晴れの日～
-#@# Todo: イントロで「テリーヌです」って点灯してる写真を乗せる？
-#@# Todo: DPDKで光らして～
-#@# Todo: あと寂しかったのでMIDIを奏でる～
+11月29日は何の日@<fn>{nenohi}でしょうか？
+そう、いい@<ruby>{NIC, にっく}(Network Interface Card / Network Interface Controller)の日ですね。
+さて、近年では2020年東京オリンピックに向けてNICのLEDを制御することが社会に求められています。
+ここは平成最後の11月29日、また2018年でたった一日しかない貴重な11月29日に向け、NICのLEDを光らせるべきではないでしょうか。
+//footnote[nenohi][子日ちゃんがかわいい。]
+
+そこで今回は、@<b>{DPDK} (Data Plane Development Kit)@<fn>{dprk}を用いてNICのLEDを制御します。
+DPDKはパケット処理を高速化ライブラリで、副次的にユーザランドからNICへ直接アクセスが可能です。
+通常は触れられないNICのレジスタ、特にLEDを点灯させるレジスタへもアクセスでき、@<img>{teru}のようなことが実現できます。
+本文中ではこうしたLEDの点灯がメインですが、DPDKの概要も紹介を通して皆様の役に立てば幸いです。
+//image[teru][照リーヌの様子][scale=0.5]
+//footnote[dprk][DPRK (Democratic People's Republic of Korea)ではありません。]
+
+さらに、光とくれば音でしょう@<fn>{kojiki}。
+今回は、コンピュータに備わるブザーで音楽を奏で、それに連動してNICのLEDを光らせることも試しています。
+SMF（MIDIファイル）から奏でることができ、主旋律を抽出する方法が分かって楽しかったです@<fn>{konami}。
+//footnote[kojiki][古事記にもそう書かれている。]
+//footnote[konami][上手に抽出できたとは言っていない。]
+
+それでは、次章から本題に入ります。
+まず第2章は、DPDKの概要とNICのLEDを制御するAPIについての紹介です。
+第3章は、LEDを制御するための実装に関して、既存の@<tt>{ETHTOOL_PHYS_ID}およびDPDKを利用した場合のそれぞれについて述べています。
+第4章が発展課題として音楽演奏やいくつかの課題に取り組んだ結果で、最後の第5章がよく分からないあとがきです。
 
 
 
@@ -385,7 +406,7 @@ static void led_pwm(uint8_t port_id, int ratio)
 === 光れ！NICニウム ～ethtoolこうこうこうこう部へようこそ～
 少し前に「ethtoolではNICのLEDを自由に制御できない」と述べました。…本当にそうでしょうか？
 すでに@<list>{ethtool_phys_id}で示した@<tt>{ethtool_phys_id()}について、その抜粋を@<list>{ethtool_phys_id_2}に示します。
-//list[ethtool_phys_id_2][ethtool_phys_id()のソースコード（抜粋）]{
+//listw[ethtool_phys_id_2][ethtool_phys_id()のソースコード（抜粋）]{
 int rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
 
 int n = rc * 2, i, interval = HZ / n;
@@ -480,7 +501,10 @@ int main(int argc, char *argv[])
 
 コンピュータで音を鳴らすといえば、pcspkr@<fn>{pcspkr}を@<tt>{ioctl()}で操作するのが一般的です[要出典]@<fn>{beep}。
 @<tt>{modprobe pcspkr}して@<list>{pcspkr}のようなコードを実行すると、@<tt>{freq} [Hz]の音が1秒間鳴ります。
-和音は出せない、つまり同時発音数は1つだけですが意外と綺麗な音を奏でてくれますよ@<fn>{alsa}。
+和音は出せない、つまり同時発音数は1つだけですが意外と綺麗な音です。
+#@# Todo: 時分割して鳴らすというアイデアもあるようですが…
+#@# Todo: 試すか………。
+#@# Todo: 昔PSGでやっと3和音したときは〜
 //list[pcspkr][pcspkrを操作するコード]{
 #define DEVICE_CONSOLE "/dev/tty0"
 #define CLOCK_TICK_RATE 1193180
@@ -543,7 +567,7 @@ SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本�
 これを踏まえてSMFをパースしていきます。
 Cは辛いので、一度PythonからパースしてCで扱いやすいテキスト形式に変換しましょう。
 mido@<fn>{mido}というライブラリを用いて実装@<fn>{doro}したものがこちらになります。
-//emlist{
+//emlistw{
 https://github.com/lrks/hikare-nicnium/blob/master/pcspkr/mid2txt.py
 $ ./mid2txt.py --help
 usage: mid2txt.py [-h] [-m METHOD] inputFile [outputFile]
@@ -580,8 +604,8 @@ usage: mid2txt.py [-h] [-m METHOD] inputFile [outputFile]
 AIでなんとかできませんか@<fn>{sigcoww2}。
 //footnote[ozcan2005][Giyasettin Ozcan, Cihan Isikhan, Adil Alpkocak. "Melody extraction on MIDI music files." 7th IEEE International Symposium on Multimedia, pp.414-422, 2005.]
 //footnote[velusamy2007][Sudha Velusamy, Balaji Thoshkahna, K.R.Ramakrishnan. "A novel melody line identification algorithm for polyphonic MIDI music." International Conference on Multimedia Modeling. Springer, Berlin, Heidelberg, 2007.]
-//footnote[こう書けば他のSIGCOWWメンバーがなんとかしてくれるんじゃないですかね。]
-//footnote[他のメンバーが以下略。2回書いたのでアピールが2倍になった。]
+//footnote[sigcoww][こう書けば他のSIGCOWWメンバーがなんとかしてくれるんじゃないですかね。]
+//footnote[sigcoww2][他のメンバーが以下略。2回書いたのでアピールが2倍になった。]
 
 
 == おわりに
