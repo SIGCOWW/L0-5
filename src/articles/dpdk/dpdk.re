@@ -1,9 +1,8 @@
 = おNICの照リーヌ DPDK仕立て
 @<author>{スパッツクリックカタルシス！, lrks}
 //profile{
-中学卒業後、高校や大学にも行かず、最近は2年間入院していましたが就職できました。
 こじらせてしまい、初任給で抱き枕カバーを追加購入してしまいました。
-杏ちゃんごめんなさい。響ちゃんと皐月ちゃんかわいいです。
+会長ごめんなさい。響ちゃんと皐月ちゃんかわいいです。
 ところで、艦娘が戦意高揚した回数の見えるメガネ、ディープラーニングってやつでなんとかなりませんか。
 //}
 
@@ -12,25 +11,27 @@
 じゃあさっそく準備のほうに入らせてもらいますので、よろしくお願いします。
 //}
 
+#@# Todo: 擬似和音
+#@# Todo: レジスタ弄ったらステータスLEDも点けられないかなぁ
 
 == はじめに
 11月29日は何の日@<fn>{nenohi}でしょうか？
-そう、いい@<ruby>{NIC, にっく}(Network Interface Card / Network Interface Controller)の日ですね。
-さて、近年では2020年東京オリンピックに向けてNICのLEDを制御することが社会に求められています。
+そう、いい@<ruby>{NIC, にっく} (Network Interface Card / Network Interface Controller)の日ですね。
+近年では2020年東京オリンピックに向けてNICのLEDを制御することが社会に求められており、
 ここは平成最後の11月29日、また2018年でたった一日しかない貴重な11月29日に向け、NICのLEDを光らせるべきではないでしょうか。
 //footnote[nenohi][子日ちゃんがかわいい。]
 
 そこで今回は、@<b>{DPDK} (Data Plane Development Kit)@<fn>{dprk}を用いてNICのLEDを制御します。
-DPDKはパケット処理を高速化ライブラリで、副次的にユーザランドからNICへ直接アクセスが可能です。
+DPDKはパケット処理を高速化するライブラリ@<fn>{pdk}で、副次的にユーザランドからNICへ直接アクセスが可能です。
 通常は触れられないNICのレジスタ、特にLEDを点灯させるレジスタへもアクセスでき、@<img>{teru}のようなことが実現できます。
 本文中ではこうしたLEDの点灯がメインですが、DPDKの概要も紹介を通して皆様の役に立てば幸いです。
-//image[teru][照リーヌの様子][scale=0.5]
-//footnote[dprk][DPRK (Democratic People's Republic of Korea)ではありません。]
+//image[teru][照リーヌの様子][scale=0.6]
+//footnote[dprk][標準時がUTC+8:30だった国(DPRK)とは関係ありません。たぶん。]
+//footnote[pdk][ストレージのパフォーマンスを改善できるSPDK (Storage Performance Development Kit)もあります。Xに好きな文字を入れて君だけのXPDKを作ろう！]
 
-さらに、光とくれば音でしょう@<fn>{kojiki}。
+さらに、光とくれば音でしょう。古事記にもそう書かれている。
 今回は、コンピュータに備わるブザーで音楽を奏で、それに連動してNICのLEDを光らせることも試しています。
 SMF（MIDIファイル）から奏でることができ、主旋律を抽出する方法が分かって楽しかったです@<fn>{konami}。
-//footnote[kojiki][古事記にもそう書かれている。]
 //footnote[konami][上手に抽出できたとは言っていない。]
 
 それでは、次章から本題に入ります。
@@ -41,7 +42,7 @@ SMF（MIDIファイル）から奏でることができ、主旋律を抽出す�
 
 
 == DPDKとは
-DPDK (Data Plane Development Kit)とは何者なのか、その答えを求め我々は公式サイト@<fn>{dpdk-link}へアクセスした。
+DPDKとは何者なのか、その答えを求め我々は公式サイト@<fn>{dpdk-link}へアクセスした。
 曰く、「パケット処理を高速化できるライブラリ」で「Linuxの@<b>{ユーザランド}とFreeBSDで動く」そうです。
 Development Kitって書いているし、そんな気はしていました。
 //footnote[dpdk-link][@<href>{https://www.dpdk.org/}]
@@ -49,13 +50,12 @@ Development Kitって書いているし、そんな気はしていました。
 ただ、この説明には少し引っかかるところがあります。
 Linuxの場合のパケット処理はカーネルが行うはずで、一部の場合を除きユーザランドで行われません。
 一部の場合とは、独自のネットワークスタックを動かしたい、または特殊なルーティングを実現したいときです。
-このとき、TAP/TUNデバイスやPacket socket、Raw socket@<fn>{ping}といった機能@<fn>{nado}を利用してユーザランドでパケットを処理しますが、カーネルとの頻繁なメモリコピーといった要因により、パフォーマンスの低下が予期されます。
+このとき、TAP/TUNデバイスやPacket socket、Raw socket@<fn>{ping}といった機能@<fn>{nado}を利用してユーザランドでパケットを処理しますが、カーネルとの頻繁なメモリコピーといった要因によってパフォーマンスの低下が予期されます。
 もしかして、DPDKとは「@<b>{TAP/TUNデバイスやPacket/Raw socketを用いたユーザランドでの}パケット処理を@<b>{CPU拡張命令やビット演算・アクセラレータによって}高速化できるライブラリ」だったのでしょうか？
-//footnote[ping][pingコマンドでもICMP (L3)パケットを送出するために利用しています。]
-//footnote[nado][ただし、netmap、(e)BPF、XDPは存在しないものとする。]
+//footnote[ping][pingもICMP (L3)パケットを送出するために利用しています。]
+//footnote[nado][netmap、(e)BPF、XDPは存在しないものとする。]
 
-#@# Todo: どれぐらい速いか資料かなんかいれる
-それはそれで有用だと思いますが、DPDKは「パケット処理を@<b>{カーネルよりも格段に}高速化できるライブラリ」です。
+それはそれで有用だと思いますが、DPDKは「パケット処理を@<b>{カーネルよりも}高速化できるライブラリ」です。
 以降では、この高速化を実現するための特徴と、気になるAPIについて述べます。
 
 === DPDKの特徴
@@ -72,14 +72,14 @@ LinuxカーネルのNAPI (New API)@<fn>{napi}において、受信したパケ�
 割り込みを待っている間、CPUは他の作業を行えます。
 その一方で、割り込みによって作業を切り替える必要があるため、コンテキストスイッチとそれによるオーバヘッドの発生は避けられません。
 
-DPDKではPMD (Poll Mode Driver)@<fn>{mmd}という仕組みによって割り込みを廃止し、すべてポーリングで処理を行っています。
+そこでDPDKではPMD (Poll Mode Driver)@<fn>{mmd}という仕組みによって割り込みを廃止し、すべての処理をポーリングで行っています。
 この間CPUは他の作業が行えない、つまりCPU使用率100%となりますが仕様です。
 NAPIが登場した頃に比べマルチコアやメニーコア環境が浸透しているとはいえ、「お1コア頂戴つかまつる」というのはなかなか豪快ですね。
-//footnote[mmd][MMD (Miku Miku Dance)と一緒に語られてそうな名前ですね。]
+//footnote[mmd][MMDことMiku Miku Danceと一緒に語られてそうな名前ですね。]
 
 ==== UIOでカーネルバイパス
 UIO (Userspace I/O)は、ユーザランドからデバイスを操作できる機能です。
-DPDKでは、これを用いて@<fn>{vfio}ユーザランドからNICを操作、つまりカーネルをバイパスします。
+DPDKでは、このUIO@<fn>{vfio}を用いてユーザランドからNICを操作する、つまりカーネルをバイパスします。
 こうすることで、ユーザランドとNICのやりとりがそのままDMAで実現できます。
 もうNICとカーネルがDMAでやりとりして、さらにカーネルとユーザランドでメモリをコピーする必要はありません。
 //footnote[vfio][DPDKでは「UIOよりも安全で高機能」(@<tt>{Linux/Documentation/vfio.txt})なVFIO (Virtual Function I/O)もサポートされています。]
@@ -94,8 +94,8 @@ Seastarは、独自のTCP/IPプロトコルスタックを備えており、こ�
 
 
 === DPDKのAPI
-DPDKは「パケット処理を高速化できる@<b>{ライブラリ}」であり、さまざまなAPIが存在します@<fn>{dpdk-api}。
-たとえば、@<tt>{rte_eth_promiscuous_enable()}によってNICのプロミスキャスモードを有効にできたり、@<tt>{rte_eth_dev_get_eeprom()}でNICのEEPROMを取得可能です。
+DPDKは「パケット処理を高速化できる@<bou>{ライブラリ}」であり、さまざまなAPIが存在します@<fn>{dpdk-api}。
+たとえば、@<tt>{rte_eth_promiscuous_enable()}ではNICのプロミスキャスモードを有効にできたり、@<tt>{rte_eth_dev_get_eeprom()}でEEPROMの内容を取得可能です。
 プロトコルの処理に関しても@<tt>{rte_ipv4_udptcp_cksum()}でチェックサム程度なら計算できるほか、各種プロトコルヘッダの構造体がすでに定義されています。
 //footnote[dpdk-api][@<href>{http://doc.dpdk.org/api/}]
 
@@ -119,22 +119,26 @@ int rte_eth_led_off(uint16_t port_id);
 //}
 最高ですね。
 「EthernetデバイスのLEDを点灯/消灯する」ってことは、つまりすなわち要するに@<img>{rj45}のLEDを点灯/消灯できるということですよ！
+NOCさんに対し、LEDを5回点滅させることでア・イ・シ・テ・ルのサインを伝えることも可能です。
+HDDのアクセスランプを利用して情報を漏らそうという研究@<fn>{guri2017}では、NICのLEDでも同様のことができるかも知れません。
 瞳の奥が熱くなって胸も熱くなる、さすがに気分が高揚します。
 ぜひこのAPIを使ってみたいものです。
 //image[rj45][RJ45ジャック][scale=0.5]
+//footnote[guri2017][@<href>{https://link.springer.com/chapter/10.1007/978-3-319-60876-1_8}]
+
 
 
 == 光れ！NICニウム
 ということで、DPDKでNICのLEDを光らせましょう。
 
 === 冴えないNICの照らしかた ～LinuxカーネルSide～
-とはいえ、NICのLEDを光らせるというのは本当にDPDKを使わないと実現できないのでしょうか？
+しかし、NICのLEDを光らせるというのは本当にDPDKを使わないと実現できないのでしょうか？
 そこで、まずはDPDKを使わずにNICの制御をLinuxカーネルに任せた場合でもLEDを光らせられるのか検討します。
-結論からいえば、LEDを自由に制御するためにはカーネルの改変が必要で敷居は高いです。
+ただ、先に結論を述べると、LEDを自由に制御するためにはカーネルの改変が必要で敷居は高いことが分かりました。
 
 通常、NICのLEDが光って嬉しいときというのは、@<tt>{eth0}や@<tt>{enp1s0}といったデバイス名に紐づくNICの物理的な位置を知りたい場合でしょう。
 これを実現するのが「@<tt>{ethtool -p <デバイス名>}」というコマンドで、NICのLEDを一定間隔で点滅させます。
-この機能は@<tt>{ioctl}システムコールを呼ぶ@<fn>{ioctl}ことで実現していることが、@<tt>{strace}や@<list>{ethtool}に示す@<fn>{ethtool}のソースコードから分かりました。
+この機能は@<tt>{ioctl}システムコールを呼び@<fn>{ioctl}実現しているということが、@<tt>{strace}や@<list>{ethtool}に示す@<tt>{ethtool}のソースコードから分かりました。
 //list[ethtool][ethtoolから抜粋したソースコード]{
 static int do_phys_id(int fd, struct ifreq *ifr)
 {
@@ -151,26 +155,17 @@ static int do_phys_id(int fd, struct ifreq *ifr)
     return err;
 }
 //}
-//footnote[ioctl][厳密には「glibcの@<tt>{ioctl()}関数が@<tt>{ioctl}システムコールをラップして呼んでいる」のですが見逃してください。]
-//footnote[ethtool][@<href>{https://www.kernel.org/pub/software/network/ethtool/}]
+//footnote[ioctl][厳密には「@<tt>{ioctl}システムコールをラップしたglibcの@<tt>{ioctl()}関数」を呼んでいるのですが見逃してください。]
 
 この@<tt>{ioctl()}を実行すると、カーネルの@<tt>{net/core/ethtool.c}に定義される@<tt>{ethtool_phys_id()}関数が呼ばれます。
-この関数のソースコードは@<list>{ethtool_phys_id}に示すとおりで、このコードからデバイスドライバの@<tt>{set_phys_id(dev, ETHTOOL_ID_ACTIVE)}の返り値から決定した周期にしたがい、@<tt>{set_phys_id(dev, ETHTOOL_ID_OFF)}または@<tt>{set_phys_id(dev, ETHTOOL_ID_ON)}によってLEDを点滅させていることが分かりました@<fn>{ldd}。
-//listw[ethtool_phys_id][ethtool_phys_id()のソースコード]{
+この関数のソースコードは@<list>{ethtool_phys_id}に示すとおりで、このコードからデバイスドライバの@<tt>{set_phys_id(dev, ETHTOOL_ID_ACTIVE)}の返り値から決定した周期にしたがい、@<tt>{set_phys_id(dev, ETHTOOL_ID_OFF)}または@<tt>{set_phys_id(dev, ETHTOOL_ID_ON)}によってLEDを点滅させていました@<fn>{ldd}。
+//listw[ethtool_phys_id][ethtool_phys_id()のソースコード（抜粋）]{
 static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
 {
-    struct ethtool_value id;
-    static bool busy;
-    const struct ethtool_ops *ops = dev->ethtool_ops;
-    int rc;
-    （中略）
-    rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
-    （中略）
+    int rc = ops->set_phys_id(dev, ETHTOOL_ID_ACTIVE);
     int n = rc * 2, i, interval = HZ / n;
 
-    /* Count down seconds */
     do {
-        /* Count down iterations per second */
         i = n;
         do {
             rtnl_lock();
@@ -181,7 +176,7 @@ static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
             schedule_timeout_interruptible(interval);
         } while (!signal_pending(current) && --i != 0);
     } while (!signal_pending(current) && (id.data == 0 || --id.data != 0));
-    （中略）
+
     (void) ops->set_phys_id(dev, ETHTOOL_ID_INACTIVE);
     return rc;
 }
@@ -189,33 +184,26 @@ static int ethtool_phys_id(struct net_device *dev, void __user *useraddr)
 //footnote[ldd][デバイスドライバ側で点滅させるNICもあるようですが、忘れたことにします。]
 
 @<tt>{set_phys_id()}は関数ポインタであり、たとえばe1000ドライバの場合@<tt>{drivers/net/ethernet/intel/e1000/e1000_ethtool.c}に定義される@<tt>{e1000_set_phys_id()}が呼び出されます。
-ソースコードは@<list>{e1000_set_phys_id}に示すとおりで、@<tt>{ETHTOOL_ID_ACTIVE}を指定して呼び出されたときは定数@<tt>{2}を返しており250[ms]間隔でLEDの点滅が変化すること、また@<tt>{ETHTOOL_ID_ON}や@<tt>{ETHTOOL_ID_OFF}が指定されると@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数を呼び出していることが分かりました。
+ソースコードは@<list>{e1000_set_phys_id}に示すとおりで、@<tt>{ETHTOOL_ID_ACTIVE}を指定して呼び出されたときは定数@<tt>{2}を返しており250 [ms]間隔でLEDの点滅が変化すること、また@<tt>{ETHTOOL_ID_ON}や@<tt>{ETHTOOL_ID_OFF}が指定されると@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数を呼び出していることが判明しました。
 なお、@<tt>{e1000_led_on()}関数や@<tt>{e1000_led_off()}関数の中では、特定のレジスタを操作しています。
 これによって、RJ45ジャックに内蔵されたLEDに向けて電圧が印加され、点灯状態が変化するわけです。
-//list[e1000_set_phys_id][e1000_set_phys_id()のソースコード]{
+//list[e1000_set_phys_id][e1000_set_phys_id()のソースコード（抜粋）]{
 static int e1000_set_phys_id(struct net_device *netdev,
                  enum ethtool_phys_id_state state)
 {
-    struct e1000_adapter *adapter = netdev_priv(netdev);
-    struct e1000_hw *hw = &adapter->hw;
-
     switch (state) {
     case ETHTOOL_ID_ACTIVE:
         e1000_setup_led(hw);
         return 2;
-
     case ETHTOOL_ID_ON:
         e1000_led_on(hw);
         break;
-
     case ETHTOOL_ID_OFF:
         e1000_led_off(hw);
         break;
-
     case ETHTOOL_ID_INACTIVE:
         e1000_cleanup_led(hw);
     }
-
     return 0;
 }
 //}
@@ -234,15 +222,15 @@ static int e1000_set_phys_id(struct net_device *netdev,
 DPDKは以前@<b>{Intel DPDK}という名前だったこともあり、2012年に初めて公開されたバージョン1.2.3r0@<fn>{dpdk-v1.2.3r0}ではigb (e1000)とixgbeにしか対応していませんでした。
 現在ではIntel以外の物理NICのほか、QEMUのvirtio-netやEC2のENA (Elastic Network Adapter)といった仮想NICにも対応しています。
 どうせなら物理NICで動かしたいところですが、Intel以外のNICは10GbEやFPGA付きばかりなので覚悟が必要です。
-特に目的がなければ、Amazonで新品か中古かそもそも本物なのか分からない謎のIntel NICを買う方針でも良いと思います。
+特に目的がなければ@<fn>{tukkomi}、Amazonで新品か中古かそもそも本物なのか分からない謎のIntel NICを買う方針でも良いと思います。
 このとき複数のポートがあると、スイッチやルータのサンプルアプリケーションが動かしやすくなるかも知れませんね。
 そうして筆者は「Intel PRO/1000 PT Dual Port Server Adapter EXPI9402PT (Intel 82571EB Gigabit Ethernet Controller)」を4,930円で購入しました。
 //footnote[dpdk-v1.2.3r0][@<href>{http://git.dpdk.org/dpdk/log/?h=v1.2.3r0}]
+//footnote[tukkomi][目的がない人がDPDKをやるかどうかはさておき。]
 
 次にCPUです。
-DPDKではx86@<fn>{x86_64}やARMのほか、POWERまでサポートされています。
+DPDKではx86 (x86_64)やARMのほか、POWERまでサポートされています。
 特にx86に注目すると、次の条件を満たす必要がありますが最近のCPUであれば問題ありません。
-//footnote[x86_64][x86_64を含みます。]
 
 : マルチコアCPU
   DPDKに1コアを持っていかれるためです。
@@ -270,6 +258,7 @@ DPDKが管理するポートIDが@<tt>{uint8_t}から@<tt>{uint16_t}に拡張さ
 CPU       | Intel Celeron E3400 (Dual Core, pse, SSE3)
 Memory    | 2GB
 NIC       | Intel 82571EB (Dual 1GbE)
+----------------
 OS        | Ubuntu 18.04 LTS Server
 DPDK      | v17.05
 Hugepages | 2MB@<m>{\times}512Pages
@@ -278,13 +267,17 @@ Hugepages | 2MB@<m>{\times}512Pages
 ==== 環境構築
 ソフトウェアのセットアップについて述べます。
 
+#@# Todo: この辺までやった
+#@# Todo: captionつき/なしのcmd/list系ブロック表示がおかしい。captionなしでも、つきの余白になっている気がする。
+
 まずやることはDPDKのビルドです。
 次に示すようにいくつかアプリケーションをインストールして、ソースコードからビルドします。
-//cmdw{
+//cmd{
 $ sudo apt install build-essential libcap-dev python
 $ wget http://fast.dpdk.org/rel/dpdk-17.05.2.tar.gz
 $ tar zxvf dpdk-17.05.2.tar.gz
-$ cd dpdk-stable-17.05.2/ && make install T=x86_64-native-linuxapp-gcc
+$ cd dpdk-stable-17.05.2/ && \
+        make install T=x86_64-native-linuxapp-gcc
 //}
 
 その次はHugepagesの設定です。
@@ -300,7 +293,9 @@ $ sudo reboot
 
 さらにNICの設定です。
 次に示すように、NICをカーネルからDPDKの管理下におきます。
-この操作は再起動すると元に戻るので気をつけましょう@<fn>{modprobe}。
+この操作は再起動すると元に戻るので気をつけましょう。
+なお、@<tt>{modprobe}については@<tt>{/etc/modules}にモジュール名を書いておけば起動時にロードしてくれます。
+@<tt>{dpdk-devbind.py}についてはsystemdのサービスを書いて起動時に実行するという方法があるようです。
 //cmdw{
 $ sudo modprobe uio_pci_generic
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --status
@@ -308,10 +303,9 @@ $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --bind=uio_pci_generic 00
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --bind=uio_pci_generic 0000:01:00.1
 $ sudo ~/dpdk-stable-17.05.2/usertools/dpdk-devbind.py --status
 //}
-//footnote[modprobe][@<tt>{modprobe}については@<tt>{/etc/modules}にモジュール名を書いておけば起動時にロードしてくれます。@<tt>{dpdk-devbind.py}についてはsystemdのサービスを書いて起動時に実行するという方法があります。]
 
-そして最後に環境変数の設定です。
-次のように設定します。
+そして最後に環境変数の設定を行います。
+内容は次のとおりです。
 @<tt>{~/.bash_profile}かどこかに記述しても構いません。
 //cmd{
 $ export RTE_SDK=~/dpdk-stable-17.05.2/
@@ -399,8 +393,7 @@ static void led_pwm(uint8_t port_id, int ratio)
 //footnote[nic-reg][主語が大きいので「少なくともLED状態を設定するレジスタ」としておきます。]
 //footnote[tabun][データシートを読み込んでおらず、本当か疑わしいので「擬似的にそう見える」としてください。ちょうどPWMの話なので。]
 //footnote[dpdk-driver][DPDKなら改変したドライバの適用も簡単！]
-#@# Todo: 余力があれば原因を調べる
-#@# TODO: レジスタ弄ったらステータスLEDも点けられないかなぁ
+
 
 
 === 光れ！NICニウム ～ethtoolこうこうこうこう部へようこそ～
@@ -501,10 +494,9 @@ int main(int argc, char *argv[])
 
 コンピュータで音を鳴らすといえば、pcspkr@<fn>{pcspkr}を@<tt>{ioctl()}で操作するのが一般的です[要出典]@<fn>{beep}。
 @<tt>{modprobe pcspkr}して@<list>{pcspkr}のようなコードを実行すると、@<tt>{freq} [Hz]の音が1秒間鳴ります。
-和音は出せない、つまり同時発音数は1つだけですが意外と綺麗な音です。
-#@# Todo: 時分割して鳴らすというアイデアもあるようですが…
-#@# Todo: 試すか………。
-#@# Todo: 昔PSGでやっと3和音したときは〜
+和音は出せない、つまり同時発音数は1つだけ@<fn>{psg}ですが意外と綺麗な音です。
+なお、たまにコンピュータに備わるブザーではなく、ALSAから音が出る場合があります。
+これは、サウンドカードを検出するとブザー音がエミュレートしまうためで、回避するにはカーネルのリビルドが必要@<fn>{alsa}です。
 //list[pcspkr][pcspkrを操作するコード]{
 #define DEVICE_CONSOLE "/dev/tty0"
 #define CLOCK_TICK_RATE 1193180
@@ -522,10 +514,11 @@ void pcspkr(int freq)
 //}
 //footnote[pcspkr][BeepやBZ (Buzzer)のことです。]
 //footnote[beep][わざわざこんなことしなくとも@<tt>{beep}コマンドで鳴らせます。]
-#@# Todo: ALSA
+//footnote[psg][時分割で擬似和音を奏でていた時代もあったようですが…。]
+//footnote[alsa][@<href>{https://pasero.net/~mako/blog/s/110}]
 
 ここに周波数と時間を書いていけば音楽を奏でられますが、手でひとつずつ書いていくのは非常に手間です。
-そこで、SMF (Standard MIDI File)をパースして楽をしましょう。
+そこで、SMF (Standard MIDI File)を基に奏でて楽をしましょう。
 SMFとは、後述する「MIDIイベント」とそれを発行するタイミングが記録された、いわゆるMIDIファイルです。
 イベントとタイミングはトラック(Track)という場所に格納されます。
 SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本のトラックを保持でき、各トラックに格納されたデータは他トラックと独立です。
