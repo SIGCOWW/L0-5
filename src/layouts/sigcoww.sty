@@ -285,7 +285,8 @@
     \checkoddpage
     \ifoddpage\hspace*{-\marginparwidth}\hspace*{-\marginparsep}\fi%
   \fi\noindent\begin{minipage}[]{\maxtextwidth}}{\end{minipage}}
-\newenvironment{widepage}{\hspace*{-10pt}\begin{widepage*}}{\end{widepage*}}
+\newenvironment{widepage}{\let\subsubsubsubsubsubsubsubsectionskip\Cvs%
+  \hspace*{-10pt}\begin{widepage*}}{\end{widepage*}}
 
 % NOP
 \newcommand{\padding@}{\vspace*{\fill}%
@@ -383,7 +384,7 @@
   \medskip\color{white}\begin{shadedb}\small\setlength{\baselineskip}{1.2zw}\begin{alltt}}{%
   \end{alltt}\end{shadedb}}
 
-\newcommand{\widesubsubsubsubsubsubsubsubsectionskip}{0.8\Cvs}
+\newcommand{\widesubsubsubsubsubsubsubsubsectionskip}{0pt}
 \newcommand{\subsubsubsubsubsubsubsubsectionskip}{0.2\Cvs}
 \newcommand{\subsubsubsubsubsubsubsubsection}{\@startsection{subparagraph}{5}{\z@}%
   {\subsubsubsubsubsubsubsubsectionskip}{\z@}{\captionfont}}
