@@ -75,7 +75,7 @@ LinuxカーネルのNAPI (New API)@<fn>{napi}において、受信したパケ�
 そこでDPDKではPMD (Poll Mode Driver)@<fn>{mmd}という仕組みによって割り込みを廃止し、すべての処理をポーリングで行っています。
 この間CPUは他の作業が行えない、つまりCPU使用率100%となりますが仕様です。
 NAPIが登場した頃に比べマルチコアやメニーコア環境が浸透しているとはいえ、「お1コア頂戴つかまつる」というのはなかなか豪快ですね。
-//footnote[mmd][MMDことMiku Miku Danceと一緒に語られてそうな名前ですね。]
+//footnote[mmd][MMDことMiku Miku Danceと一緒に語られていそうな名前ですね。]
 
 ==== UIOでカーネルバイパス
 UIO (Userspace I/O)は、ユーザランドからデバイスを操作できる機能です。
@@ -95,7 +95,7 @@ Seastarは、独自のTCP/IPプロトコルスタックを備えており、こ�
 
 === DPDKのAPI
 DPDKは「パケット処理を高速化できる@<bou>{ライブラリ}」であり、さまざまなAPIが存在します@<fn>{dpdk-api}。
-たとえば、@<tt>{rte_eth_promiscuous_enable()}ではNICのプロミスキャスモードを有効にできたり、@<tt>{rte_eth_dev_get_eeprom()}でEEPROMの内容を取得可能です。
+たとえば、@<tt>{rte_eth_promiscuous_enable()}ではNICのプロミスキャスモードを有効にできるほか、@<tt>{rte_eth_dev_get_eeprom()}でEEPROMの内容を取得可能です。
 プロトコルの処理に関しても@<tt>{rte_ipv4_udptcp_cksum()}でチェックサム程度なら計算できるほか、各種プロトコルヘッダの構造体がすでに定義されています。
 //footnote[dpdk-api][@<href>{http://doc.dpdk.org/api/}]
 
@@ -136,7 +136,7 @@ HDDのアクセスランプを利用して情報を漏らそうという研究@<
 そこで、まずはDPDKを使わずにNICの制御をLinuxカーネルに任せた場合でもLEDを光らせられるのか検討します。
 ただ、先に結論を述べると、LEDを自由に制御するためにはカーネルの改変が必要で敷居は高いことが分かりました。
 
-通常、NICのLEDが光って嬉しいときというのは、@<tt>{eth0}や@<tt>{enp1s0}といったデバイス名に紐づくNICの物理的な位置を知りたい場合でしょう。
+通常、NICのLEDが光って嬉しいときというのは、@<tt>{eth0}や@<tt>{enp1s0}といったデバイス名に紐づくNICの物理的な位置を知りたい場合でしょう@<fn>{locator}。
 これを実現するのが「@<tt>{ethtool -p <デバイス名>}」というコマンドで、NICのLEDを一定間隔で点滅させます。
 この機能は@<tt>{ioctl}システムコールを呼び@<fn>{ioctl}実現しているということが、@<tt>{strace}や@<list>{ethtool}に示す@<tt>{ethtool}のソースコードから分かりました。
 //list[ethtool][ethtoolから抜粋したソースコード]{
@@ -155,6 +155,7 @@ static int do_phys_id(int fd, struct ifreq *ifr)
     return err;
 }
 //}
+//footnote[locator][「ロケータLED」や、Unit ID (UID)のLEDのような感じで。]
 //footnote[ioctl][厳密には「@<tt>{ioctl}システムコールをラップしたglibcの@<tt>{ioctl()}関数」を呼んでいるのですが見逃してください。]
 
 この@<tt>{ioctl()}を実行すると、カーネルの@<tt>{net/core/ethtool.c}に定義される@<tt>{ethtool_phys_id()}関数が呼ばれます。
@@ -545,7 +546,7 @@ SMF (Format 0)を除くSMF (Format 1)またはSMF (Format 2)では最大256本�
 
 なお、pcspkrに渡す周波数はノートナンバーとピッチを基に次のように計算できます@<fn>{freq}。
 //texequation{
-440 \times 2^{\left(\frac{note-69}{12}+\frac{pitch-8192}{4096\times12}\right)}
+f = 440 \times 2^{\left(\frac{note-69}{12}+\frac{pitch-8192}{4096\times12}\right)}
 //}
 //footnote[freq][@<href>{https://dsp.stackexchange.com/questions/1645/converting-a-pitch-bend-midi-value-to-a-normal-pitch-value}]
 
