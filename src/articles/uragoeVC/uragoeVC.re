@@ -7,11 +7,11 @@ D進はいいぞ。
 //}
 
 //lead{
-なれる！美少女バーチャルYoutuber
+なれる！美少女バーチャルYouTuber
 //}
 
 == はじめに
-オタク界隈における近年のバーチャルYoutuber（以降、VTuberと表記）の流行は目覚ましいものがあり、
+オタク界隈における近年のバーチャルYouTuber（以降、VTuberと表記）の流行は目覚ましいものがあり、
 2018年5月28日の時点でのVTuberの総数は3,000人を突破したと言われています@<fn>{moguravr}。
 //footnote[moguravr][@<href>{https://www.moguravr.com/vtuber-3000/}]
 最近では、VTuberを媒体として@<b>{バ}ーチャルな@<b>{美}少女に受@<b>{肉}する@<b>{「バ美肉」}がブームとなっており、
@@ -27,12 +27,12 @@ VTuberがここまで流行している背景には、人々の「自己表現�
 
 === 外見の美少女化を用いたバ美肉おじさん
 バ美肉には、何よりもまず外見を美少女化する必要があります。
-VTuberブームの先駆けとなった代表的なVTuberの一人であるねこます氏（通称：バーチャルのじゃロリ狐娘Youtuberおじさん）@<fn>{nekomasu}は、
+VTuberブームの先駆けとなった代表的なVTuberの一人であるねこます氏（通称：バーチャルのじゃロリ狐娘YouTuberおじさん）@<fn>{nekomasu}は、
 ケモミミの3D美少女アバター（@<img>{nekomasu}）を被ったおじさんが地声@<fn>{jigoe}で配信をするというインパクトのあるコンテンツが注目され、
 まさに上記のバ美肉おじさんの先駆けともなった存在と言えるでしょう。
 //footnote[nekomasu][@<href>{https://www.youtube.com/channel/UCt8tmsv8kL9Nc1sxvCo9j4Q}]
 //footnote[jigoe][同氏がボイスチェンジャー等で声の美少女化をしない理由として、（1）ツールや機材のセットアップ等に時間をとられたくない、 （2）ボイスチェンジャーで変換された音声の音質が一定水準に達しないとそもそも動画を見てもらえない、という2点が挙げられています。（参考: @<href>{https://www.youtube.com/watch?v=tTmZAtfHPVU&feature=youtu.be&t=701} 11:45より）]
-//image[nekomasu][ねこます氏のVRアバター][scale=0.5]
+//image[nekomasu][ねこます氏のVRアバター][scale=0.75]
 
 === 外見と声の美少女化を用いたバ美肉おじさん
 完全なバ美肉には、外見だけでなく、声も美少女化する必要があります。
@@ -50,7 +50,7 @@ VTuberブームの先駆けとなった代表的なVTuberの一人であるね�
   認識誤りによる意図しない発話の生成などが生じるという欠点があります。
   代表的なVTuberとしては、のらきゃっと氏（通称：バーチャルサキュバスおじさん、@<img>{noracat}）@<fn>{noracat}が挙げられます。
 //footnote[noracat][@<href>{https://www.youtube.com/channel/UC3iwL9Yz8LcKkJsnLPevOTQ}]
-//image[noracat][のらきゃっと氏のVRアバター][scale=0.25]
+//image[noracat][のらきゃっと氏のVRアバター][scale=0.5]
 
 : （2）ボイスチェンジャーの利用
   リアチェンvoice@<fn>{rcvoice}や恋声@<fn>{koigoe}といったボイスチェンジャーソフトを利用して声の美少女化を実現します。
@@ -62,8 +62,8 @@ VTuberブームの先駆けとなった代表的なVTuberの一人であるね�
 //footnote[koigoeusing][筆者も実際に恋声を使ってみたのですが、ある程度の音質で変換できるようになるまでに話者自身の訓練とソフトのパラメータチューニング等が必要な気がしました。]
 //footnote[magurona][@<href>{https://www.youtube.com/channel/UCPf-EnX70UM7jqjKwhDmS8g}]
 //footnote[takebana][@<href>{https://www.youtube.com/channel/UCuPrcSmgo6twlAQzwYPlSkQ}]
-//image[magurona][魔王マグロナ氏のVRアバター][scale=0.4]
-//image[takebana][竹花ノート氏のVRアバター][scale=0.25]
+//image[magurona][魔王マグロナ氏のVRアバター][scale=0.75]
+//image[takebana][竹花ノート氏のVRアバター][scale=0.5]
 
 : （3）統計的声質変換技術の利用
   統計的機械学習の技術を用いて声の美少女化を実現します。
@@ -91,7 +91,7 @@ VTuberブームの先駆けとなった代表的なVTuberの一人であるね�
 今回の実験では、コーパスとして日本声優統計学会@<fn>{seiyu}により公開されている「声優統計コーパス」を利用し、
 変換元話者を某大学の男子大学院生Sさん@<fn>{Ssan}、変換先話者を藤東知夏さん@<fn>{fujitou}の「通常」発話音声@<fn>{emospeech}としました。
 //footnote[nonparavc][パラレルコーパスを用いない手法もあります（例： @<href>{http://sython.org/papers/ICASSP/saito18icassp_vc.pdf}）。]
-//footnote[seiyu][https://voice-statistics.github.io/]
+//footnote[seiyu][@<href>{https://voice-statistics.github.io/}]
 //footnote[Ssan][SさんにはL0 Vol.3でもお世話になりました。]
 //footnote[fujitou][@<href>{http://supershark.jp/talent_fujito.html}]
 //footnote[emospeech][通常発話以外にも「喜び」、「怒り」の発話があります。]
@@ -100,11 +100,11 @@ VTuberブームの先駆けとなった代表的なVTuberの一人であるね�
 人間の音声は、声帯振動によって生成された音源が、口、鼻、喉といった声道のフィルタを通ることによって作り出されています（@<img>{speech_process}）。
 統計的声質変換では、音声波形から音源の特徴量と声道の特徴量を分析・抽出し、得られた音声特徴量のドメインで話者性を変換するモデルを学習します@<fn>{vq-vae}。
 今回の実験では、音声分析に山梨大学の森勢先生によって開発されたWORLD@<fn>{world}（のPythonラッパーであるpyworld@<fn>{pyworld}）を利用し、
-声帯振動の特性を基本周波数（F0）と非周期性指標（AP: APeriodicity）、
+声帯振動の特性を基本周波数 (F0) と非周期性指標（AP: APeriodicity）、
 声道フィルタの特性をスペクトル包絡の特徴量（メルケプストラム係数）として抽出しました。
 WORLDスペクトル包絡からメルケプストラム係数への変換には、音声信号処理ツールキットSPTK@<fn>{sptk}（のPythonラッパーであるpysptk@<fn>{pysptk}）を利用しました。
 @<list>{analysis}に音声特徴量抽出のPythonコードを示します。
-//image[speech_process][音声の生成過程：ソース・フィルタモデル（東京大学 信号処理特論第7回講義資料より引用）][scale=0.6]
+//image[speech_process][音声の生成過程：ソース・フィルタモデル（東京大学 信号処理特論第7回講義資料より引用）][scale=0.8]
 //list[analysis][pyworldとpysptkを用いた音声特徴量抽出]{
 from scipy.io import wavfile
 import pyworld
@@ -154,11 +154,11 @@ mcep = pysptk.sp2mc(sp, order=mcep_order, alpha=alpha)
 L_{\rm MSE}(\bm{y}, \bm{\hat y}) = (\bm{\hat y} - \bm{y})^\top (\bm{\hat y} - \bm{y})
 //}
 を最小化するように学習されます。
-//image[highway][Input-to-output highway networks を用いた声質変換][scale=0.6]
+//image[highway][Input-to-output highway networks を用いた声質変換][scale=0.8]
 //footnote[source_features][F0は変換元・変換先話者の平均と分散を用いて線形変換されます。非周期性指標は、そもそも変換されないことが多いです。]
 //footnote[highway][@<href>{https://www.jstage.jst.go.jp/article/transinf/E100.D/8/E100.D_2017EDL8034/_article}]
-//footnote[g][本稿では3層のFeed-Forwardネットワークを用います．隠れ素子数は256，隠れ層の活性化関数はReLU，出力層の活性化関数はLinearです．]
-//footnote[tgate][1層のFeed-Forwardネットワークとして表現されます．出力層の活性化関数はsigmoidです．]
+//footnote[g][本稿では3層のFeed-Forwardネットワークを用います。隠れ素子数は256、隠れ層の活性化関数はReLU、出力層の活性化関数はLinearです。]
+//footnote[tgate][1層のFeed-Forwardネットワークとして表現されます。出力層の活性化関数はsigmoidです。]
 
 本稿では、変換音声をさらに高品質化するために、近年提案されたGenerative Adversarial Network (GAN)@<fn>{gan}の枠組みに基づく声質変換モデルの学習（敵対的声質変換）@<fn>{ganvc}を採用します。
 敵対的声質変換では、@<img>{ganvc}に示すように、変換された音声と人間の自然音声を識別する識別モデルと、
@@ -184,11 +184,11 @@ L_{\rm G}(\bm{y}, \bm{\hat y}) = L_{\rm MSE}(\bm{y}, \bm{\hat y}) + \omega_{\rm 
 @<m>{\mathbb{E\}_{\bm{\hat y\}\} [L_{\mathrm{MSE\}\}/L_{\mathrm{ADV\}\}]}
 は、2つの損失関数のスケールを調整する役割を持っています。
 敵対的声質変換の枠組みをわかりやすくまとめたものを@<img>{ganvc_wakaru}@<fn>{ganvc_wakaru}に示します。
-//image[ganvc][Input-to-output highway networkを用いた敵対的声質変換][scale=0.6]
-//image[ganvc_wakaru][敵対的声質変換の概略図][scale=0.8]
+//image[ganvc][Input-to-output highway networkを用いた敵対的声質変換][scale=0.8]
+//image[ganvc_wakaru][敵対的声質変換の概略図][scale=0.9]
 //footnote[gan][@<href>{https://arxiv.org/abs/1406.2661}]
 //footnote[ganvc][@<href>{https://ieeexplore.ieee.org/document/8063435/}]
-//footnote[d][本稿では3層のFeed-Forwardネットワークを用います．隠れ素子数は128，隠れ層の活性化関数はReLU，出力層の活性化関数はsigmoidです．]
+//footnote[d][本稿では3層のFeed-Forwardネットワークを用います。隠れ素子数は128、隠れ層の活性化関数はReLU、出力層の活性化関数はsigmoidです。]
 //footnote[ganvc_wakaru][@<href>{https://logmi.jp/294756} より引用]
 
 === 変換音声波形の生成
@@ -207,8 +207,8 @@ L_{\rm G}(\bm{y}, \bm{\hat y}) = L_{\rm MSE}(\bm{y}, \bm{\hat y}) + \omega_{\rm 
 
 （1）のボコーダ処理による品質劣化の影響は大きく、音源特徴量の変換を行わない場合（例えば、同性間での声質変換）では、
 （2）の方式で高品質な声質変換を実現できます。
-//image[fcvc][特徴量変換とWORLDボコーダを用いた波形生成][scale=0.6]
-//image[sdvc][差分スペクトルフィルタによる音声波形変換][scale=0.6]
+//image[fcvc][特徴量変換とWORLDボコーダを用いた波形生成][scale=0.8]
+//image[sdvc][差分スペクトルフィルタによる音声波形変換][scale=0.8]
 //footnote[fcvc][@<href>{https://ieeexplore.ieee.org/document/4317579/}]
 //footnote[sdvc][@<href>{https://www.isca-speech.org/archive/interspeech_2014/i14_2514.html}]
 //footnote[vc][@<href>{http://sython.org/papers/SP/saito201701sp.pdf} から引用]
@@ -220,7 +220,7 @@ L_{\rm G}(\bm{y}, \bm{\hat y}) = L_{\rm MSE}(\bm{y}, \bm{\hat y}) + \omega_{\rm 
 変換元音声のF0を線形変換して生成した波形に対して差分スペクトル法を適用する、
 という手法@<fn>{diffvc_f0}も考えられますが、
 音声の分析・合成というプロセスを挟むことによって品質が劣化するという問題があります。
-//subfig[F0のヒストグラム]{
+//subfigw[F0のヒストグラム]{
 //image[f0hist_normalS][変換元話者（Sさん、地声）][scale=0.33]
 //image[f0hist_fujitou][変換先話者（藤東さん）][scale=0.33]
 //image[f0hist_uragoeS][変換元話者（Sさん、裏声）][scale=0.33]
@@ -238,7 +238,7 @@ L_{\rm G}(\bm{y}, \bm{\hat y}) = L_{\rm MSE}(\bm{y}, \bm{\hat y}) + \omega_{\rm 
 Sさんの裏声音声から抽出されたF0のヒストグラムを@<img>{f0hist_uragoeS}に示します。
 やはり変換先話者の藤東さん（@<img>{f0hist_fujitou}）と比較すると、分布の形状は異なっていますが、
 F0の範囲はそれっぽく近づいており、F0の変換をしなくても差分スペクトル法がそれなりに上手く動いてくれることが期待できます。
-//footnote[diff_filter][声質変換モデルから推定された@<m>{\bm{\hat y\}}から入力音声特徴量@<m>{\bm{x\}}を引いたものをフィルタとします．]
+//footnote[diff_filter][声質変換モデルから推定された@<m>{\bm{\hat y\}}から入力音声特徴量@<m>{\bm{x\}}を引いたものをフィルタとします。]
 
 == 音声サンプル
 今回の実験で生成した音声サンプルを@<fn>{samples}で公開しています。
