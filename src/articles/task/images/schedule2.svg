@@ -196,6 +196,35 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
          transform="scale(0.2,0.2)" />
     </marker>
+    <marker
+       inkscape:stockid="TriangleInS"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleInS-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path6453-1"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(-0.2,-0.2)" />
+    </marker>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="27.940194"
+       height="27.940194"
+       patternTransform="translate(397.16202,562.61027)"
+       id="pattern7481">
+      <rect
+         y="0.574"
+         x="0.574"
+         height="26.792194"
+         width="26.792194"
+         id="rect4136-2-1-5"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.148;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </pattern>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -205,8 +234,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="262.87345"
-     inkscape:cy="973.87886"
+     inkscape:cx="270.7408"
+     inkscape:cy="697.19597"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -214,7 +243,8 @@
      inkscape:window-height="978"
      inkscape:window-x="1182"
      inkscape:window-y="577"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="0"
+     showguides="false" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -1551,5 +1581,392 @@
          x="227.09554"
          y="358.94681"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">ジョブショップ問題</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4136-7-05-3"
+       width="47.424126"
+       height="26.77066"
+       x="23.430801"
+       y="159.69115" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="27.395372"
+       y="178.76897"
+       id="text4142-0-2-9-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4144-46-2-3-9"
+         x="27.395372"
+         y="178.76897"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">仕事A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="288.57144"
+       y="479.50507"
+       id="text6518"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6520"
+         x="288.57144"
+         y="479.50507"></tspan></text>
+    <g
+       id="g8666"
+       transform="translate(20,0.94030127)">
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-5"
+         y="439.6416"
+         x="58.982845"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="439.6416"
+           x="58.982845"
+           id="tspan4144-46-2-3-9-0-07"
+           sodipodi:role="line">M1</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01"
+         y="475.71133"
+         x="65.385498"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="475.71133"
+           x="65.385498"
+           id="tspan4144-46-2-3-9-0-84"
+           sodipodi:role="line">7</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01-4"
+         y="505.87857"
+         x="65.483002"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="505.87857"
+           x="65.483002"
+           id="tspan4144-46-2-3-9-0-84-0"
+           sodipodi:role="line">6</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01-9"
+         y="536.04578"
+         x="65.115509"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="536.04578"
+           x="65.115509"
+           id="tspan4144-46-2-3-9-0-84-6"
+           sodipodi:role="line">3</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01-2"
+         y="566.21301"
+         x="65.363007"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="566.21301"
+           x="65.363007"
+           id="tspan4144-46-2-3-9-0-84-4"
+           sodipodi:role="line">5</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0"
+         y="475.78445"
+         x="19.881863"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="475.78445"
+           x="19.881863"
+           id="tspan4144-46-2-3-9-0"
+           sodipodi:role="line">J1</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-8"
+         y="506.02481"
+         x="19.76936"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="506.02481"
+           x="19.76936"
+           id="tspan4144-46-2-3-9-0-0"
+           sodipodi:role="line">J2</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-84"
+         y="536.17511"
+         x="19.814358"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="536.17511"
+           x="19.814358"
+           id="tspan4144-46-2-3-9-0-8"
+           sodipodi:role="line">J3</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-0"
+         y="566.21301"
+         x="19.626858"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="566.21301"
+           x="19.626858"
+           id="tspan4144-46-2-3-9-0-2"
+           sodipodi:role="line">J4</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-5-6"
+         y="439.6416"
+         x="101.20485"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="439.6416"
+           x="101.20485"
+           id="tspan4144-46-2-3-9-0-07-3"
+           sodipodi:role="line">M2</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01-47"
+         y="475.71133"
+         x="103.2213"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="475.71133"
+           x="103.2213"
+           id="tspan4144-46-2-3-9-0-84-2"
+           sodipodi:role="line">10</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01-4-5"
+         y="505.87857"
+         x="107.63002"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="505.87857"
+           x="107.63002"
+           id="tspan4144-46-2-3-9-0-84-0-2"
+           sodipodi:role="line">8</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01-9-9"
+         y="536.04578"
+         x="107.81752"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="536.04578"
+           x="107.81752"
+           id="tspan4144-46-2-3-9-0-84-6-7"
+           sodipodi:role="line">5</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-2-0-01-2-2"
+         y="566.21295"
+         x="107.52501"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="566.21295"
+           x="107.52501"
+           id="tspan4144-46-2-3-9-0-84-4-7"
+           sodipodi:role="line">4</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path6974"
+         d="m 19.192895,451.32144 104.036005,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.00484324px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path6976"
+         d="m 46.951785,427.56713 0,142.932"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.00175536px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         r="11.616755"
+         cy="530.61841"
+         cx="69.19545"
+         id="path6982"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1" />
+      <circle
+         r="11.616755"
+         cy="560.41791"
+         cx="111.62187"
+         id="path6982-3"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g7987"
+       transform="translate(-176.18759,0.520357)">
+      <rect
+         y="475.88977"
+         x="398.59192"
+         height="26.792206"
+         width="61.13739"
+         id="rect4136-2-1"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.14780557;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-89-8"
+         y="494.78336"
+         x="421.22339"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="494.78336"
+           x="421.22339"
+           id="tspan4144-46-2-4"
+           sodipodi:role="line">J3</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="173.86748"
+       y="495.49869"
+       id="text4142-4-3-7"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         x="173.86748"
+         y="495.49869"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+         id="tspan4274-8-8">M1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="173.64247"
+       y="532.41241"
+       id="text4142-4-5-7-2"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         x="173.64247"
+         y="532.41241"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+         id="tspan4274-7-6-9">M2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="634.33679"
+       y="572.67523"
+       id="text4142-43-4-38"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         id="tspan4144-43-2-6"
+         x="634.33679"
+         y="572.67523"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">時間</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutS-5)"
+       d="m 207.86479,456.54714 0,99.33826 451.00888,0"
+       id="path6308-1-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600" />
+    <g
+       id="g7998"
+       transform="translate(-114.53049,-0.980004)">
+      <rect
+         y="514.30383"
+         x="398.04904"
+         height="26.792175"
+         width="101.54351"
+         id="rect4136-2-1-9"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.14780557;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-89-8-7"
+         y="533.19745"
+         x="440.88358"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="533.19745"
+           x="440.88358"
+           id="tspan4144-46-2-4-5"
+           sodipodi:role="line">J3</tspan></text>
+    </g>
+    <g
+       id="g8003"
+       transform="translate(159.59994,66.902473)">
+      <rect
+         y="446.42136"
+         x="398.04904"
+         height="26.792175"
+         width="80.835365"
+         id="rect4136-2-1-9-6"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.14780557;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-89-8-7-0"
+         y="465.20993"
+         x="430.34201"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="465.20993"
+           x="430.34201"
+           id="tspan4144-46-2-4-5-8"
+           sodipodi:role="line">J4</tspan></text>
+    </g>
+    <g
+       id="g7998-6"
+       transform="translate(58.152507,-37.893675)">
+      <rect
+         y="514.30383"
+         x="398.04904"
+         height="26.792175"
+         width="101.54351"
+         id="rect4136-2-1-9-5"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.14780557;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-89-8-7-63"
+         y="533.19745"
+         x="440.88358"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="533.19745"
+           x="440.88358"
+           id="tspan4144-46-2-4-5-49"
+           sodipodi:role="line">J4</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="395.69122"
+       y="511.40247"
+       id="text4142-4-3-7-7"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         x="395.69122"
+         y="511.40247"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+         id="tspan4274-8-8-5">・・・</tspan></text>
   </g>
 </svg>
