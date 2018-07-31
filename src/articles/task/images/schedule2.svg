@@ -181,6 +181,21 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
          transform="scale(-0.2,-0.2)" />
     </marker>
+    <marker
+       inkscape:stockid="TriangleOutS"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutS-5"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path6462-0"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="scale(0.2,0.2)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -189,17 +204,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="375.38226"
-     inkscape:cy="398.41324"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="262.87345"
+     inkscape:cy="973.87886"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1840"
-     inkscape:window-height="1057"
-     inkscape:window-x="1072"
-     inkscape:window-y="554"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1630"
+     inkscape:window-height="978"
+     inkscape:window-x="1182"
+     inkscape:window-y="577"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -218,25 +233,28 @@
      id="layer1">
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleInS-5)"
-       d="m 126.15311,640.78616 0,125.60224 c 0,0 628.29802,0 559.0952,0"
+       d="m 116.15311,845.07187 0,125.60224 c 0,0 628.29802,0 559.0952,0"
        id="path6308-1-57"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:6, 6;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 671.10716,646.18575 0,119.48006"
+       d="m 661.10716,850.47146 0,119.48006"
        id="path7421-8"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600" />
     <g
-       transform="translate(160.51137,477.72336)"
-       id="g9014-4-6">
+       transform="translate(150.51137,682.00907)"
+       id="g9014-4-6"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="171.45729"
          x="109.37878"
@@ -258,32 +276,35 @@
            sodipodi:role="line">仕事A</tspan></text>
     </g>
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2,2;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 596.97032,646.18575 0,119.48006"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 586.97032,850.47146 0,119.48006"
        id="path7421-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="516.02936"
-       y="660.31213"
+       x="506.02939"
+       y="864.59784"
        id="text4142-43-4-0-2"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-43-2-3-0"
-         x="516.02936"
-         y="660.31213"
+         x="506.02939"
+         y="864.59784"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP Medium'">メイクスパン</tspan></text>
     <g
-       transform="translate(31.606078,268.70545)"
-       id="g9014-4">
+       transform="translate(21.606078,472.99116)"
+       id="g9014-4"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="171.45729"
          x="109.37878"
@@ -306,7 +327,10 @@
     </g>
     <g
        id="g5866-3-2"
-       transform="translate(158.78881,-53.841712)">
+       transform="translate(201.64595,-181.69885)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="225.299"
          x="163.48045"
@@ -341,20 +365,24 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="40.498714"
-       y="190.51262"
+       x="83.355858"
+       y="62.655476"
        id="text4142"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144"
-         x="40.498714"
-         y="190.51262"
+         x="83.355858"
+         y="62.655476"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">仕事A</tspan></text>
     <g
-       id="g9014">
+       id="g9014"
+       transform="translate(42.857143,-127.85714)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="171.45729"
          x="109.37878"
@@ -377,7 +405,10 @@
     </g>
     <g
        id="g5861"
-       transform="translate(48.417107,-8.8899299)">
+       transform="translate(91.27425,-136.74707)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="180.34721"
          x="189.17758"
@@ -401,28 +432,29 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="40.423714"
-       y="227.48668"
+       x="83.280853"
+       y="99.629539"
        id="text4142-4"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-4"
-         x="40.423714"
-         y="227.48668"
+         x="83.280853"
+         y="99.629539"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">仕事B</tspan><tspan
          sodipodi:role="line"
-         x="40.423714"
-         y="246.23668"
+         x="83.280853"
+         y="118.37954"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
          id="tspan4274" /></text>
     <g
        id="g6279"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
        inkscape:export-xdpi="600"
-       inkscape:export-ydpi="600">
+       inkscape:export-ydpi="600"
+       transform="translate(42.857143,-127.85714)">
       <g
          transform="translate(-0.34631219,-0.20013428)"
          id="g6021">
@@ -496,27 +528,27 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="40.498714"
-       y="264.46078"
+       x="83.355858"
+       y="136.60364"
        id="text4142-4-5"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-4-3"
-         x="40.498714"
-         y="264.46078"
+         x="83.355858"
+         y="136.60364"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">仕事C</tspan><tspan
          sodipodi:role="line"
-         x="40.498714"
-         y="283.21078"
+         x="83.355858"
+         y="155.35364"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
          id="tspan4274-7" /></text>
     <g
        id="g6185"
-       transform="translate(1.0097647e-8,-7.8571429)"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       transform="translate(42.857143,-135.71429)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600">
       <g
@@ -586,47 +618,35 @@
       </g>
     </g>
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutS)"
-       d="m 94.285714,163.07647 0,125.60224 294.642856,0"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:"
+       d="m 137.14286,35.219327 0,125.602243 294.64285,0"
        id="path6308"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\flow.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="369.7413"
-       y="305.46857"
-       id="text4142-43"
-       sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
-       inkscape:export-xdpi="600"
-       inkscape:export-ydpi="600"><tspan
-         sodipodi:role="line"
-         id="tspan4144-43"
-         x="369.7413"
-         y="305.46857"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">時間</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="72.10479"
-       y="459.24057"
+       x="62.104794"
+       y="663.52625"
        id="text4142-7"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-3"
-         x="72.10479"
-         y="459.24057"
+         x="62.104794"
+         y="663.52625"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">機械A</tspan></text>
     <g
        id="g6021-5"
-       transform="translate(159.56183,231.53126)">
+       transform="translate(149.56183,435.81697)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="208.63148"
          x="109.72509"
@@ -649,7 +669,10 @@
     </g>
     <g
        id="g6161-3"
-       transform="translate(234.07296,186.90015)">
+       transform="translate(224.07296,391.18586)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="253.26259"
          x="113.23555"
@@ -678,26 +701,29 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="72.029785"
-       y="496.70679"
+       x="62.029789"
+       y="700.99249"
        id="text4142-4-3"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-4-0"
-         x="72.029785"
-         y="496.70679"
+         x="62.029789"
+         y="700.99249"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">機械B</tspan><tspan
          sodipodi:role="line"
-         x="72.029785"
-         y="515.45679"
+         x="62.029789"
+         y="719.74249"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
          id="tspan4274-8" /></text>
     <g
        id="g6984"
-       transform="translate(68.528101,0.50579834)">
+       transform="translate(58.528101,204.79151)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <g
          transform="translate(11.39048,296.77594)"
          id="g5861-5">
@@ -771,26 +797,29 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="72.10479"
-       y="534.17303"
+       x="62.104794"
+       y="738.45874"
        id="text4142-4-5-7"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-4-3-2"
-         x="72.10479"
-         y="534.17303"
+         x="62.104794"
+         y="738.45874"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">機械C</tspan><tspan
          sodipodi:role="line"
-         x="72.10479"
-         y="552.92303"
+         x="62.104794"
+         y="757.20874"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
          id="tspan4274-7-6" /></text>
     <g
        id="g5866-3"
-       transform="translate(189.83543,289.79623)">
+       transform="translate(179.83543,494.08194)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="225.299"
          x="163.48045"
@@ -813,7 +842,10 @@
     </g>
     <g
        id="g6069-1"
-       transform="translate(165.47916,306.46374)">
+       transform="translate(155.47916,510.74945)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="208.63148"
          x="315.1264"
@@ -836,7 +868,10 @@
     </g>
     <g
        id="g6177-3"
-       transform="translate(298.06357,261.83264)">
+       transform="translate(288.06357,466.11835)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="253.26259"
          x="329.34033"
@@ -860,8 +895,8 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="657.41962"
-       y="574.16034"
+       x="647.41962"
+       y="778.44604"
        id="text4142-43-4"
        sodipodi:linespacing="125%"
        inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
@@ -869,12 +904,12 @@
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-43-2"
-         x="657.41962"
-         y="574.16034"
+         x="647.41962"
+         y="778.44604"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">時間</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleInS)"
-       d="m 125.89179,431.76825 0,125.60224 c 0,0 628.29802,0 559.0952,0"
+       d="m 115.89179,636.05396 0,125.60224 c 0,0 628.29802,0 559.0952,0"
        id="path6308-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc"
@@ -883,7 +918,7 @@
        inkscape:export-ydpi="600" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:6, 6;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 670.84584,437.16784 0,119.48006"
+       d="m 660.84584,641.45355 0,119.48006"
        id="path7421"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -893,8 +928,8 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="589.90491"
-       y="451.29422"
+       x="579.90491"
+       y="655.5799"
        id="text4142-43-4-0"
        sodipodi:linespacing="125%"
        inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
@@ -902,27 +937,30 @@
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-43-2-3"
-         x="589.90491"
-         y="451.29422"
+         x="579.90491"
+         y="655.5799"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP Medium'">メイクスパン</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="72.366112"
-       y="668.25848"
+       x="62.366116"
+       y="872.54419"
        id="text4142-7-9"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-3-1"
-         x="72.366112"
-         y="668.25848"
+         x="62.366116"
+         y="872.54419"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">機械A</tspan></text>
     <g
        id="g6021-5-7"
-       transform="translate(82.322032,440.54917)">
+       transform="translate(72.322032,644.83488)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="208.63148"
          x="109.72509"
@@ -945,7 +983,10 @@
     </g>
     <g
        id="g6161-3-6"
-       transform="translate(28.010628,395.91806)">
+       transform="translate(18.010628,600.20377)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="253.26259"
          x="113.23555"
@@ -974,26 +1015,29 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="72.291107"
-       y="705.72467"
+       x="62.291111"
+       y="910.01038"
        id="text4142-4-3-6"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-4-0-2"
-         x="72.291107"
-         y="705.72467"
+         x="62.291111"
+         y="910.01038"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">機械B</tspan><tspan
          sodipodi:role="line"
-         x="72.291107"
-         y="724.47467"
+         x="62.291111"
+         y="928.76038"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
          id="tspan4274-8-0" /></text>
     <g
        id="g5861-5-9"
-       transform="translate(276.60742,506.29965)">
+       transform="translate(266.60742,710.58536)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="180.34721"
          x="189.17758"
@@ -1016,7 +1060,10 @@
     </g>
     <g
        id="g6000-3-5"
-       transform="translate(111.78095,478.18126)">
+       transform="translate(101.78095,682.46697)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="208.63148"
          x="226.15529"
@@ -1039,7 +1086,10 @@
     </g>
     <g
        id="g6964-9"
-       transform="translate(0.30280402,172.54963)">
+       transform="translate(-9.6971959,376.83534)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="514.09723"
          x="191.37643"
@@ -1063,26 +1113,29 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="72.366112"
-       y="743.19092"
+       x="62.366116"
+       y="947.47662"
        id="text4142-4-5-7-3"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-4-3-2-1"
-         x="72.366112"
-         y="743.19092"
+         x="62.366116"
+         y="947.47662"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">機械C</tspan><tspan
          sodipodi:role="line"
-         x="72.366112"
-         y="761.94092"
+         x="62.366116"
+         y="966.22662"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
          id="tspan4274-7-6-3" /></text>
     <g
        id="g5866-3-0"
-       transform="translate(386.06634,498.81414)">
+       transform="translate(376.06634,703.09985)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="225.299"
          x="163.48045"
@@ -1105,7 +1158,10 @@
     </g>
     <g
        id="g6069-1-2"
-       transform="translate(150.08311,515.48165)">
+       transform="translate(140.08311,719.76736)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="208.63148"
          x="315.1264"
@@ -1128,7 +1184,10 @@
     </g>
     <g
        id="g6177-3-7"
-       transform="translate(8.4111093,470.85055)">
+       transform="translate(-1.5888907,675.13626)"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
       <rect
          y="253.26259"
          x="329.34033"
@@ -1152,50 +1211,336 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="657.41962"
-       y="783.17822"
+       x="647.41962"
+       y="987.46393"
        id="text4142-43-4-3"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make2.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
          id="tspan4144-43-2-2"
-         x="657.41962"
-         y="783.17822"
+         x="647.41962"
+         y="987.46393"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">時間</tspan></text>
+    <g
+       id="g5866-3-2-9"
+       transform="translate(201.50657,-5.949478)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="225.299"
+         x="163.48045"
+         height="26.77066"
+         width="47.424126"
+         id="rect4136-7-05-59-0"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-9-3-4"
+         y="244.37683"
+         x="167.44502"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="244.37683"
+           x="167.44502"
+           id="tspan4144-46-2-3-8-5"
+           sodipodi:role="line">機械C</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="83.216476"
+       y="238.40486"
+       id="text4142-79"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         id="tspan4144-5"
+         x="83.216476"
+         y="238.40486"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">仕事A</tspan></text>
+    <g
+       id="g9014-0"
+       transform="translate(42.717759,47.89223)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="171.45729"
+         x="109.37878"
+         height="26.77066"
+         width="128.3266"
+         id="rect4136-9"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-67"
+         y="190.53513"
+         x="153.79457"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="190.53513"
+           x="153.79457"
+           id="tspan4144-46-5"
+           sodipodi:role="line">機械A</tspan></text>
+    </g>
+    <g
+       id="g5861-6"
+       transform="translate(91.134866,39.0023)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="180.34721"
+         x="189.17758"
+         height="26.77066"
+         width="84.799767"
+         id="rect4136-8-8"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-1-84"
+         y="199.42505"
+         x="211.75496"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="199.42505"
+           x="211.75496"
+           id="tspan4144-46-8-9"
+           sodipodi:role="line">機械B</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="83.141472"
+       y="275.37891"
+       id="text4142-4-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         id="tspan4144-4-7"
+         x="83.141472"
+         y="275.37891"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">仕事B</tspan><tspan
+         sodipodi:role="line"
+         x="83.141472"
+         y="294.12891"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+         id="tspan4274-2" /></text>
+    <g
+       id="g6021-8"
+       transform="translate(223.84255,47.692096)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="208.63148"
+         x="109.72509"
+         height="26.77066"
+         width="77.969452"
+         id="rect4136-84-7"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-0-5"
+         y="227.70932"
+         x="128.96231"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="227.70932"
+           x="128.96231"
+           id="tspan4144-46-0-7"
+           sodipodi:role="line">機械A</tspan></text>
+    </g>
+    <g
+       id="g6000-9"
+       transform="translate(-74.058753,47.692095)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="208.63148"
+         x="226.15529"
+         height="26.77066"
+         width="127.6569"
+         id="rect4136-8-1-45"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-1-5-1"
+         y="227.70932"
+         x="270.16122"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="227.70932"
+           x="270.16122"
+           id="tspan4144-46-8-5-9"
+           sodipodi:role="line">機械B</tspan></text>
+    </g>
+    <g
+       id="g6069-0"
+       transform="translate(-35.317955,47.692096)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="208.63148"
+         x="315.1264"
+         height="26.77066"
+         width="53.73756"
+         id="rect4136-7-9-2"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-7-23"
+         y="227.70932"
+         x="322.24768"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="227.70932"
+           x="322.24768"
+           id="tspan4144-46-2-9-4"
+           sodipodi:role="line">機械C</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="83.216476"
+       y="312.353"
+       id="text4142-4-5-8"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         id="tspan4144-4-3-0"
+         x="83.216476"
+         y="312.353"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">仕事C</tspan><tspan
+         sodipodi:role="line"
+         x="83.216476"
+         y="331.103"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+         id="tspan4274-7-0" /></text>
+    <g
+       id="g6161-7"
+       transform="translate(38.860987,40.03508)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="253.26259"
+         x="113.23555"
+         height="26.77066"
+         width="50.469448"
+         id="rect4136-4-88"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-6-0"
+         y="272.34042"
+         x="118.72277"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="272.34042"
+           x="118.72277"
+           id="tspan4144-46-6-3"
+           sodipodi:role="line">機械A</tspan></text>
+    </g>
+    <g
+       id="g4664"
+       transform="translate(43.515036,8)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="285.29767"
+         x="202.48811"
+         height="26.770676"
+         width="146.11942"
+         id="rect4136-8-18-7"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-1-55-4"
+         y="304.37552"
+         x="255.72533"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="304.37552"
+           x="255.72533"
+           id="tspan4144-46-8-1-3"
+           sodipodi:role="line">機械B</tspan></text>
+    </g>
+    <g
+       id="g6177-7"
+       transform="translate(-126.77846,40.03508)"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <rect
+         y="253.26259"
+         x="329.34033"
+         height="26.77066"
+         width="43.495548"
+         id="rect4136-7-0-7"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.16906941;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4142-0-2-0-9"
+         y="272.34042"
+         x="331.34061"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'"
+           y="272.34042"
+           x="331.34061"
+           id="tspan4144-46-2-8-6"
+           sodipodi:role="line">機械C</tspan></text>
+    </g>
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleInS-94)"
-       d="m 1.5,0 0,125.60224 c 0,0 628.29802,0 559.0952,0"
-       id="path6308-1-4"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 137.00348,210.9687 0,125.60224 294.64285,0"
+       id="path6308-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
-       inkscape:export-xdpi="600"
-       inkscape:export-ydpi="600" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:6, 6;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 546.45405,5.39959 0,119.48006"
-       id="path7421-2"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-filename="C:\Users\cafe\Desktop\text4142-43.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="465.51312"
-       y="19.52597"
-       id="text4142-43-4-0-5"
+       x="226.90511"
+       y="181.86502"
+       id="text4142-43-4-0-4"
        sodipodi:linespacing="125%"
        inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600"><tspan
          sodipodi:role="line"
-         id="tspan4144-43-2-3-6"
-         x="465.51312"
-         y="19.52597"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP Medium'">メイクスパン</tspan></text>
+         id="tspan4144-43-2-3-2"
+         x="226.90511"
+         y="181.86502"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">フローショップ問題</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="227.09554"
+       y="358.94681"
+       id="text4142-43-4-0-4-5"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\cafe\Desktop\make1.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         sodipodi:role="line"
+         id="tspan4144-43-2-3-2-7"
+         x="227.09554"
+         y="358.94681"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP'">ジョブショップ問題</tspan></text>
   </g>
 </svg>
