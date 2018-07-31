@@ -50,7 +50,7 @@ VTuberブームの先駆けとなった代表的なVTuberの一人であるね�
   認識誤りによる意図しない発話の生成などが生じるという欠点があります。
   代表的なVTuberとしては、のらきゃっと氏（通称：バーチャルサキュバスおじさん、@<img>{noracat}）@<fn>{noracat}が挙げられます。
 //footnote[noracat][@<href>{https://www.youtube.com/channel/UC3iwL9Yz8LcKkJsnLPevOTQ}]
-//image[noracat][のらきゃっと氏のVRアバター][scale=0.5]
+//image[noracat][のらきゃっと氏のVRアバター][scale=0.3]
 
 : （2）ボイスチェンジャーの利用
   リアチェンvoice@<fn>{rcvoice}や恋声@<fn>{koigoe}といったボイスチェンジャーソフトを利用して声の美少女化を実現します。
@@ -62,8 +62,8 @@ VTuberブームの先駆けとなった代表的なVTuberの一人であるね�
 //footnote[koigoeusing][筆者も実際に恋声を使ってみたのですが、ある程度の音質で変換できるようになるまでに話者自身の訓練とソフトのパラメータチューニング等が必要な気がしました。]
 //footnote[magurona][@<href>{https://www.youtube.com/channel/UCPf-EnX70UM7jqjKwhDmS8g}]
 //footnote[takebana][@<href>{https://www.youtube.com/channel/UCuPrcSmgo6twlAQzwYPlSkQ}]
-//image[magurona][魔王マグロナ氏のVRアバター][scale=0.75]
-//image[takebana][竹花ノート氏のVRアバター][scale=0.5]
+//image[magurona][魔王マグロナ氏のVRアバター][scale=0.7]
+//image[takebana][竹花ノート氏のVRアバター][scale=0.4]
 
 : （3）統計的声質変換技術の利用
   統計的機械学習の技術を用いて声の美少女化を実現します。
@@ -100,7 +100,7 @@ VTuberブームの先駆けとなった代表的なVTuberの一人であるね�
 人間の音声は、声帯振動によって生成された音源が、口、鼻、喉といった声道のフィルタを通ることによって作り出されています（@<img>{speech_process}）。
 統計的声質変換では、音声波形から音源の特徴量と声道の特徴量を分析・抽出し、得られた音声特徴量のドメインで話者性を変換するモデルを学習します@<fn>{vq-vae}。
 今回の実験では、音声分析に山梨大学の森勢先生によって開発されたWORLD@<fn>{world}（のPythonラッパーであるpyworld@<fn>{pyworld}）を利用し、
-声帯振動の特性を基本周波数 (F0) と非周期性指標（AP: APeriodicity）、
+声帯振動の特性を基本周波数(F0)と非周期性指標(AP: APeriodicity)、
 声道フィルタの特性をスペクトル包絡の特徴量（メルケプストラム係数）として抽出しました。
 WORLDスペクトル包絡からメルケプストラム係数への変換には、音声信号処理ツールキットSPTK@<fn>{sptk}（のPythonラッパーであるpysptk@<fn>{pysptk}）を利用しました。
 @<list>{analysis}に音声特徴量抽出のPythonコードを示します。
