@@ -6,7 +6,7 @@ prt: "株式会社サングループ"                             # 印刷所
 pbl: "SIGCOWW"                                          # 発行者
 oth: "https://sigcoww.org/"                             #   Webサイト 省略可
 edt: "sigcoww@sigcoww.org"                              # 連絡先 省略可
-#feedback: "https://example.com/"                        #   連絡フォーム 省略可
+feedback: "https://sigcoww.org/book/l0-5/"              #   連絡フォーム 省略可
 msg: "https://sigcoww.org/ で既刊紹介中"                # メッセージ 省略可
 
 container_version: "hinalogic"                          # desk のバージョン 省略可
