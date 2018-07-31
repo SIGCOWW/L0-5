@@ -177,13 +177,13 @@ GAは，JSPに対しても適用されています．
 GAの主なベンチマークは，ApplegateとCookらによって提案された「ten tough problems@<fn>{ten}（10の難問）」を対象としています．
 //footnote[ten][言ってしまえば，その当時の研究者たちが，B&Bを始めとした種々のソルバを用いても解くことができなかった問題をまとめたものです．今では殆ど解かれてしまいましたが．]
 
-GAによるJSPへの接近としては，論文[小野 98]@<fn>{ONO98}で提案された交叉法JOX(Job-based Order Crossover)があげられます．
+GAによるJSPへの接近としては，論文[小野 98]@<fn>{ONO98}で提案された交叉法@<b>{JOX(Job-based Order Crossover)}があげられます．
 JOXは，順序交叉という比較的単純な交叉オペレータをJSPに適用したもので，JSPの性質をうまく利用した，優れた交叉オペレータといえます．
 JSPに対するGAの改良は，ほとんどがこのJOXを交叉法として利用している，あるいはベースとしています．
 //footnote[ONO98][小野, 小林: Inter-Machine JOXに基づくJSPの進化的解法，人工知能学会誌，Vol. 13，No. 5，pp. 780-790 (1998)．]
 
 なお，ten tough problemsは，Googleが公開しているor-toolsリポジトリ@<fn>{google}で入手可能です．
-いくつか問題がありますが，abz7 ~ 9, la21, la24, la25, la27, la29, la38, la40が該当します．
+他の問題がありますが，abz7 ~ 9, la21, la24, la25, la27, la29, la38, la40がten tough problemsです．
 ten tough problemsに関する最新の動向は未調査ですが，2009年時点でabz8, abz9が未解決で，それ以外は最適解の発見に成功しているようです．
 //footnote[google][@<href>{https://github.com/google/or-tools/tree/master/examples/data/jobshop}]
 
