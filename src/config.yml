@@ -11,7 +11,7 @@ msg: "https://sigcoww.org/ で既刊紹介中"                # メッセージ 
 
 container_version: "hinalogic"                          # desk のバージョン 省略可
 layout_hash: "bd74186c6e2ece1f3e5e5b9073acb347"         # layout.tex.erb のMD5ハッシュ 省略可
-sty_hash: "566051c4e0b664374d3b88ce576fe5b2"            # sigcoww.sty のMD5ハッシュ 省略可
+sty_hash: "4b8e54da76d61080c5766b01cb0f6446"            # sigcoww.sty のMD5ハッシュ 省略可
 titlepage_pdf: "titlepage.pdf"                          # 扉ページ 省略可
 
 
